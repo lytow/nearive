@@ -424,11 +424,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         <label class="field-label">Q19. What is your estimated budget range? <span class="req">*</span></label>
         <span class="budget-currency-note" id="budget-note">Prices in AED — auto-detected based on your location</span>
         <div class="choices grid2" id="budget-choices">
-          <div class="choice"><input type="radio" name="budget" id="b1" value="b1"><label class="choice-label" for="b1"><span class="choice-dot"></span><span id="bl1">Under AED 10,000</span></label></div>
-          <div class="choice"><input type="radio" name="budget" id="b2" value="b2"><label class="choice-label" for="b2"><span class="choice-dot"></span><span id="bl2">AED 10,000 – 20,000</span></label></div>
-          <div class="choice"><input type="radio" name="budget" id="b3" value="b3"><label class="choice-label" for="b3"><span class="choice-dot"></span><span id="bl3">AED 20,000 – 45,000</span></label></div>
-          <div class="choice"><input type="radio" name="budget" id="b4" value="b4"><label class="choice-label" for="b4"><span class="choice-dot"></span><span id="bl4">More than AED 45,000</span></label></div>
-          <div class="choice"><input type="radio" name="budget" id="b5" value="Not decided yet"><label class="choice-label" for="b5"><span class="choice-dot"></span>Not decided yet</label></div>
+          <div class="choice"><input type="radio" name="budget" id="b1" value="b1"><label class="choice-label" for="b1"><span class="choice-dot"></span><span id="bl1">Under AED 5,000</span></label></div>
+          <div class="choice"><input type="radio" name="budget" id="b2" value="b2"><label class="choice-label" for="b2"><span class="choice-dot"></span><span id="bl2">AED 5,000 – 10,000</span></label></div>
+          <div class="choice"><input type="radio" name="budget" id="b3" value="b3"><label class="choice-label" for="b3"><span class="choice-dot"></span><span id="bl3">AED 10,000 – 20,000</span></label></div>
+          <div class="choice"><input type="radio" name="budget" id="b4" value="b4"><label class="choice-label" for="b4"><span class="choice-dot"></span><span id="bl4">AED 20,000 – 30,000</span></label></div>
+          <div class="choice"><input type="radio" name="budget" id="b5" value="b5"><label class="choice-label" for="b5"><span class="choice-dot"></span><span id="bl5">More than AED 30,000</span></label></div>
+          <div class="choice"><input type="radio" name="budget" id="b6" value="Not decided yet"><label class="choice-label" for="b5"><span class="choice-dot"></span>Not decided yet</label></div>
         </div>
         <div class="field-err">Please select one</div>
       </div>
@@ -595,7 +596,7 @@ form.addEventListener('submit', async function(e){
 
 // ---- CURRENCY & PHONE DETECTION ----
 const budgetLabels = {
-  AED: ['Under AED 10,000','AED 10,000 – 20,000','AED 20,000 – 45,000','More than AED 45,000'],
+  AED: ['Under AED 5,000','AED 5,000 – 10,000','AED 10,000 – 20,000','AED 20,000 – 30,000','More than AED 30,000'],
   USD: ['Up to $1,000','Up to $2,000','Up to $4,000','More than $4,000'],
   EUR: ['Up to €1,000','Up to €2,000','Up to €4,000','More than €4,000'],
   CAD: ['Up to CAD 1,500','Up to CAD 3,000','Up to CAD 6,000','CAD 6,000 and more'],
@@ -647,6 +648,64 @@ fetch('https://ipapi.co/json/')
     }
   }).catch(() => {});
 
+</script>
+
+<script>
+(function(){
+  const budgetData = {
+    AED: {
+      note: 'Prices in AED — auto-detected based on your location',
+      labels: ['Under AED 5,000','AED 5,000 – 10,000','AED 10,000 – 20,000','AED 20,000 – 30,000','More than AED 30,000']
+    },
+    USD: {
+      note: 'Prices in USD — auto-detected based on your location',
+      labels: ['Up to $1,000','Up to $2,000','Up to $4,000','More than $4,000', null]
+    },
+    EUR: {
+      note: 'Prices in EUR — auto-detected based on your location',
+      labels: ['Up to €1,000','Up to €2,000','Up to €4,000','More than €4,000', null]
+    },
+    CAD: {
+      note: 'Prices in CAD — auto-detected based on your location',
+      labels: ['Up to CAD 1,500','Up to CAD 3,000','Up to CAD 6,000','CAD 6,000 and more', null]
+    },
+    AUD: {
+      note: 'Prices in AUD — auto-detected based on your location',
+      labels: ['Up to AUD 1,500','Up to AUD 3,000','Up to AUD 6,000','AUD 6,000 and more', null]
+    },
+  };
+
+  function applyBudget(currency) {
+    const d = budgetData[currency] || budgetData.AED;
+    const note = document.getElementById('budget-note');
+    if (note) note.textContent = d.note;
+    for (let i = 1; i <= 5; i++) {
+      const el = document.getElementById('bl' + i);
+      if (!el) continue;
+      if (d.labels[i-1] === null) {
+        el.closest('.choice').style.display = 'none';
+      } else {
+        el.closest('.choice').style.display = '';
+        el.textContent = d.labels[i-1];
+      }
+    }
+  }
+
+  const gcc = ['AE','SA','KW','QA','BH','OM'];
+  const eur = ['GB','DE','FR','IT','ES','NL','BE','CH','AT','SE','NO','DK','FI','PT','GR','PL','CZ','HU','RO','IE','LU','SK','HR','SI'];
+
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(d => {
+      const cc = d.country_code;
+      let cur = 'USD';
+      if (gcc.includes(cc)) cur = 'AED';
+      else if (cc === 'CA') cur = 'CAD';
+      else if (cc === 'AU' || cc === 'NZ') cur = 'AUD';
+      else if (eur.includes(cc)) cur = 'EUR';
+      applyBudget(cur);
+    }).catch(() => {});
+})();
 </script>
 </body>
 </html>
