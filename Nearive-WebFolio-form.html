@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nearive — Website Discovery Questionnaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a1628;--navy2:#0f2040;--blue:#2d7fff;--purple:#7b5ea7;
+  --grey:#8a9ab5;--bg:#f4f6fb;--border:#dde3f0;--card:#fff;
+  --wa:#25d366;--error:#e24b4a;--success:#1dd278;
+}
+body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--navy);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+header{background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo-mark{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
+.logo-text{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:18px;letter-spacing:-1px;color:var(--navy)}
+.back-link{font-size:13px;color:var(--grey);text-decoration:none;transition:color .2s}
+.back-link:hover{color:var(--navy)}
+
+.form-hero{background:var(--navy);padding:48px 40px 40px;position:relative;overflow:hidden}
+.form-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(45,127,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,127,255,.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.form-hero::after{content:'';position:absolute;top:-80px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(123,94,167,.2) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:640px}
+.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:10px}
+.form-hero h1{font-size:clamp(24px,4vw,38px);font-weight:700;letter-spacing:-1.5px;color:#fff;margin-bottom:10px;line-height:1.1}
+.form-hero p{font-size:14px;color:var(--grey);line-height:1.65;max-width:440px}
+
+.progress-wrap{margin-top:28px}
+.progress-bar{background:rgba(255,255,255,.08);border-radius:100px;height:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:100px;transition:width .4s ease;width:0%}
+.progress-label{font-size:11px;color:var(--grey);margin-top:8px;display:flex;justify-content:space-between}
+
+.form-wrap{max-width:700px;margin:0 auto;padding:36px 40px 80px}
+
+.form-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:16px;position:relative;overflow:hidden}
+.form-section::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--blue),var(--purple))}
+.sec-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:2px;letter-spacing:-.3px}
+.sec-sub{font-size:12px;color:var(--grey);margin-bottom:24px;line-height:1.5}
+
+.field{margin-bottom:22px}
+.field:last-child{margin-bottom:0}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+label.field-label{display:flex;align-items:baseline;gap:6px;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:7px;line-height:1.4}
+.req{color:var(--blue);font-size:12px}
+.helper{font-size:11px;color:var(--grey);font-weight:400;margin-top:4px;display:block}
+.multi-hint{font-size:10.5px;font-weight:500;letter-spacing:.3px;color:var(--blue);background:rgba(45,127,255,.08);padding:2px 8px;border-radius:100px;margin-left:4px}
+
+input[type=text],input[type=email],input[type=tel],textarea,select{
+  width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:8px;
+  font-family:'Inter',sans-serif;font-size:14px;color:var(--navy);background:#fff;
+  transition:border-color .2s,box-shadow .2s;outline:none;-webkit-appearance:none;
+}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,127,255,.1)}
+input::placeholder,textarea::placeholder{color:#b8c4d8}
+textarea{resize:vertical;min-height:88px;line-height:1.6}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a9ab5' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+
+/* choices grid */
+.choices{display:flex;flex-direction:column;gap:8px}
+.choices.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.choices.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.choice{position:relative}
+.choice input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0;z-index:2}
+.choice-label{
+  display:flex;align-items:center;gap:9px;
+  padding:10px 14px;border:1px solid var(--border);border-radius:8px;
+  font-size:13px;color:#6a7a94;cursor:pointer;transition:all .15s;
+  background:#fafbff;user-select:none;
+}
+.choice input:checked ~ .choice-label{border-color:var(--blue);background:rgba(45,127,255,.05);color:var(--navy);font-weight:500}
+.choice-box{width:15px;height:15px;border:1.5px solid #c8d4e8;border-radius:3px;flex-shrink:0;transition:all .15s;background:#fff;display:flex;align-items:center;justify-content:center}
+.choice input:checked ~ .choice-label .choice-box{background:var(--blue);border-color:var(--blue)}
+.choice input:checked ~ .choice-label .choice-box::after{content:'';width:8px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px);display:block}
+.choice-dot{width:15px;height:15px;border:1.5px solid #c8d4e8;border-radius:50%;flex-shrink:0;transition:all .15s;background:#fff}
+.choice input:checked ~ .choice-label .choice-dot{background:var(--blue);border-color:var(--blue);box-shadow:inset 0 0 0 3px #fff}
+
+/* error */
+.field-err{font-size:11px;color:var(--error);margin-top:5px;display:none}
+.field.err input,.field.err textarea{border-color:var(--error)}
+.field.err .field-err{display:block}
+.field.err .choice-label{border-color:var(--error)}
+
+/* submit */
+.submit-box{background:var(--navy);border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:8px}
+.submit-text h3{font-size:17px;font-weight:600;color:#fff;margin-bottom:4px;letter-spacing:-.3px}
+.submit-text p{font-size:12px;color:var(--grey);line-height:1.5}
+.btn-submit{background:var(--blue);color:#fff;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s;white-space:nowrap;flex-shrink:0}
+.btn-submit:hover{background:#1a6ee8}
+.btn-submit:disabled{opacity:.55;cursor:not-allowed}
+
+/* success */
+.success{display:none;text-align:center;padding:60px 32px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:16px}
+.success-icon{width:60px;height:60px;background:rgba(29,210,120,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.success h2{font-size:24px;font-weight:700;letter-spacing:-.5px;color:var(--navy);margin-bottom:8px}
+.success p{font-size:14px;color:var(--grey);line-height:1.6;max-width:380px;margin:0 auto 28px}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transition:opacity .2s}
+.btn-wa:hover{opacity:.9}
+.wa-icon{width:18px;height:18px;flex-shrink:0}
+
+@media(max-width:600px){
+  header,.form-hero{padding-left:20px;padding-right:20px}
+  .form-wrap{padding:24px 16px 60px}
+  .field-row{grid-template-columns:1fr}
+  .choices.grid2,.choices.grid3{grid-template-columns:1fr 1fr}
+  .submit-box{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://nearive.com" class="logo-mark">
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="#0a1628"/>
+      <line x1="21" y1="6" x2="11" y2="26" stroke="#2d7fff" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">nearive</span>
+  </a>
+  <a href="https://nearive.com" class="back-link">← Back</a>
+</header>
+
+<div class="form-hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Website Discovery</div>
+    <h1>Tell us about<br>your project.</h1>
+    <p>Takes about 4 minutes. Your answers help us prepare for your free strategy call and craft the right proposal.</p>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+      <div class="progress-label">
+        <span id="plabel">0 of 20 answered</span>
+        <span id="ppct">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-wrap">
+
+  <div class="success" id="success">
+    <div class="success-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1dd278" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Brief received!</h2>
+    <p>We'll review your answers and get back to you within 24 hours to schedule your free strategy call.</p>
+    <a href="#" id="wa-link" class="btn-wa" target="_blank">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Also message us on WhatsApp
+    </a>
+  </div>
+
+  <form id="form" novalidate>
+
+    <!-- SECTION 1: Contact -->
+    <div class="form-section">
+      <div class="sec-title">Contact Information</div>
+      <div class="sec-sub">Who should we reach out to?</div>
+
+      <div class="field-row">
+        <div class="field" data-required data-key="name">
+          <label class="field-label">Full Name <span class="req">*</span></label>
+          <input type="text" placeholder="Jane Smith" />
+          <div class="field-err">Required</div>
+        </div>
+        <div class="field" data-required data-key="company">
+          <label class="field-label">Company Name <span class="req">*</span></label>
+          <input type="text" placeholder="Acme Co." />
+          <div class="field-err">Required</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" data-required data-key="email" data-type="email">
+          <label class="field-label">Email Address <span class="req">*</span></label>
+          <input type="email" placeholder="jane@company.com" />
+          <div class="field-err">Please enter a valid email</div>
+        </div>
+        <div class="field" data-required data-key="phone" data-type="phone">
+          <label class="field-label">UAE Phone / WhatsApp <span class="req">*</span></label>
+          <input type="tel" placeholder="+971 5X XXX XXXX" />
+          <span class="helper">Example: +971 50 123 4567</span>
+          <div class="field-err">Please enter a valid UAE number (+971...)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Business -->
+    <div class="form-section">
+      <div class="sec-title">About Your Business</div>
+      <div class="sec-sub">Help us understand what you do.</div>
+
+      <div class="field" data-key="intro">
+        <label class="field-label">Q5. Please briefly introduce your business and what you do.</label>
+        <textarea placeholder="Tell us about your company, what you offer, and who your customers are..."></textarea>
+      </div>
+
+      <div class="field" data-required data-key="goal">
+        <label class="field-label">Q6. What is the main goal of the website? <span class="req">*</span> <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="checkbox" name="goal" value="Company presentation / credibility"><label class="choice-label"><span class="choice-box"></span>Company presentation / credibility</label></div>
+          <div class="choice"><input type="checkbox" name="goal" value="Lead generation"><label class="choice-label"><span class="choice-box"></span>Lead generation</label></div>
+          <div class="choice"><input type="checkbox" name="goal" value="Showcase portfolio or projects"><label class="choice-label"><span class="choice-box"></span>Showcase portfolio or projects</label></div>
+          <div class="choice"><input type="checkbox" name="goal" value="Sell products or services"><label class="choice-label"><span class="choice-box"></span>Sell products or services</label></div>
+          <div class="choice"><input type="checkbox" name="goal" value="Booking / inquiries"><label class="choice-label"><span class="choice-box"></span>Booking / inquiries</label></div>
+          <div class="choice"><input type="checkbox" name="goal" value="Other"><label class="choice-label"><span class="choice-box"></span>Other</label></div>
+        </div>
+        <div class="field-err">Please select at least one</div>
+      </div>
+
+      <div class="field" data-key="audience">
+        <label class="field-label">Q7. Who is your target audience? <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid3">
+          <div class="choice"><input type="checkbox" name="audience" value="B2B"><label class="choice-label"><span class="choice-box"></span>B2B</label></div>
+          <div class="choice"><input type="checkbox" name="audience" value="B2C"><label class="choice-label"><span class="choice-box"></span>B2C</label></div>
+          <div class="choice"><input type="checkbox" name="audience" value="Local market"><label class="choice-label"><span class="choice-box"></span>Local market</label></div>
+          <div class="choice"><input type="checkbox" name="audience" value="International"><label class="choice-label"><span class="choice-box"></span>International</label></div>
+          <div class="choice"><input type="checkbox" name="audience" value="Other"><label class="choice-label"><span class="choice-box"></span>Other</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Website -->
+    <div class="form-section">
+      <div class="sec-title">Website Requirements</div>
+      <div class="sec-sub">Let's understand what you need technically.</div>
+
+      <div class="field" data-required data-key="type">
+        <label class="field-label">Q8. What type of website are you looking for? <span class="req">*</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="radio" name="type" value="One-page website"><label class="choice-label"><span class="choice-dot"></span>One-page website</label></div>
+          <div class="choice"><input type="radio" name="type" value="Multi-page website"><label class="choice-label"><span class="choice-dot"></span>Multi-page website</label></div>
+          <div class="choice"><input type="radio" name="type" value="Landing page"><label class="choice-label"><span class="choice-dot"></span>Landing page</label></div>
+          <div class="choice"><input type="radio" name="type" value="Not sure yet"><label class="choice-label"><span class="choice-dot"></span>Not sure yet</label></div>
+        </div>
+        <div class="field-err">Please select one</div>
+      </div>
+
+      <div class="field" data-key="sections">
+        <label class="field-label">Q9. Which sections would you like on the website? <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid3">
+          <div class="choice"><input type="checkbox" name="sections" value="Home"><label class="choice-label"><span class="choice-box"></span>Home</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="About Us"><label class="choice-label"><span class="choice-box"></span>About Us</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="Services"><label class="choice-label"><span class="choice-box"></span>Services</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="Products"><label class="choice-label"><span class="choice-box"></span>Products</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="Portfolio / Projects"><label class="choice-label"><span class="choice-box"></span>Portfolio</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="Blog / Articles"><label class="choice-label"><span class="choice-box"></span>Blog</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="FAQ"><label class="choice-label"><span class="choice-box"></span>FAQ</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="Contact"><label class="choice-label"><span class="choice-box"></span>Contact</label></div>
+          <div class="choice"><input type="checkbox" name="sections" value="Other"><label class="choice-label"><span class="choice-box"></span>Other</label></div>
+        </div>
+      </div>
+
+      <div class="field" data-key="features">
+        <label class="field-label">Q15. What features do you need? <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="checkbox" name="features" value="Contact form"><label class="choice-label"><span class="choice-box"></span>Contact form</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="WhatsApp integration"><label class="choice-label"><span class="choice-box"></span>WhatsApp integration</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="Booking system"><label class="choice-label"><span class="choice-box"></span>Booking system</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="Multilingual"><label class="choice-label"><span class="choice-box"></span>Multilingual website</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="Blog"><label class="choice-label"><span class="choice-box"></span>Blog</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="Payment system"><label class="choice-label"><span class="choice-box"></span>Payment system</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="CRM integration"><label class="choice-label"><span class="choice-box"></span>CRM integration</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="Newsletter signup"><label class="choice-label"><span class="choice-box"></span>Newsletter signup</label></div>
+          <div class="choice"><input type="checkbox" name="features" value="Other"><label class="choice-label"><span class="choice-box"></span>Other</label></div>
+        </div>
+      </div>
+
+      <div class="field" data-required data-key="domain">
+        <label class="field-label">Q16. Do you already have a domain and hosting? <span class="req">*</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="radio" name="domain" value="Both available"><label class="choice-label"><span class="choice-dot"></span>Both available</label></div>
+          <div class="choice"><input type="radio" name="domain" value="Only domain"><label class="choice-label"><span class="choice-dot"></span>Only domain</label></div>
+          <div class="choice"><input type="radio" name="domain" value="Only hosting"><label class="choice-label"><span class="choice-dot"></span>Only hosting</label></div>
+          <div class="choice"><input type="radio" name="domain" value="Neither"><label class="choice-label"><span class="choice-dot"></span>Neither</label></div>
+          <div class="choice"><input type="radio" name="domain" value="Not sure"><label class="choice-label"><span class="choice-dot"></span>Not sure</label></div>
+        </div>
+        <div class="field-err">Please select one</div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Brand & Content -->
+    <div class="form-section">
+      <div class="sec-title">Brand & Content</div>
+      <div class="sec-sub">What you already have helps us plan what we need to create.</div>
+
+      <div class="field" data-key="branding">
+        <label class="field-label">Q10. Do you currently have branding materials? <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="checkbox" name="branding" value="Logo"><label class="choice-label"><span class="choice-box"></span>Logo</label></div>
+          <div class="choice"><input type="checkbox" name="branding" value="Brand colors"><label class="choice-label"><span class="choice-box"></span>Brand colors</label></div>
+          <div class="choice"><input type="checkbox" name="branding" value="Brand guidelines"><label class="choice-label"><span class="choice-box"></span>Brand guidelines</label></div>
+          <div class="choice"><input type="checkbox" name="branding" value="Professional photos/videos"><label class="choice-label"><span class="choice-box"></span>Professional photos/videos</label></div>
+          <div class="choice"><input type="checkbox" name="branding" value="None yet"><label class="choice-label"><span class="choice-box"></span>None yet</label></div>
+        </div>
+      </div>
+
+      <div class="field" data-required data-key="content">
+        <label class="field-label">Q11. Do you have content ready for the website? <span class="req">*</span></label>
+        <div class="choices">
+          <div class="choice"><input type="radio" name="content" value="Yes, mostly ready"><label class="choice-label"><span class="choice-dot"></span>Yes, mostly ready</label></div>
+          <div class="choice"><input type="radio" name="content" value="Partially ready"><label class="choice-label"><span class="choice-dot"></span>Partially ready</label></div>
+          <div class="choice"><input type="radio" name="content" value="No, we need support"><label class="choice-label"><span class="choice-dot"></span>No, we need support</label></div>
+        </div>
+        <div class="field-err">Please select one</div>
+      </div>
+
+      <div class="field" data-key="style">
+        <label class="field-label">Q14. What style or feeling do you prefer? <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid3">
+          <div class="choice"><input type="checkbox" name="style" value="Corporate"><label class="choice-label"><span class="choice-box"></span>Corporate</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Minimal"><label class="choice-label"><span class="choice-box"></span>Minimal</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Luxury"><label class="choice-label"><span class="choice-box"></span>Luxury</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Modern"><label class="choice-label"><span class="choice-box"></span>Modern</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Bold"><label class="choice-label"><span class="choice-box"></span>Bold</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Technical"><label class="choice-label"><span class="choice-box"></span>Technical</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Creative"><label class="choice-label"><span class="choice-box"></span>Creative</label></div>
+          <div class="choice"><input type="checkbox" name="style" value="Not sure yet"><label class="choice-label"><span class="choice-box"></span>Not sure yet</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: Inspiration & Competition -->
+    <div class="form-section">
+      <div class="sec-title">Inspiration & Market</div>
+      <div class="sec-sub">This helps us understand your competitive landscape and design preferences.</div>
+
+      <div class="field" data-key="inspiration">
+        <label class="field-label">Q12. Are there any websites you like or feel inspired by?</label>
+        <textarea placeholder="e.g. linear.app, stripe.com — I like the clean minimal feel and smooth animations..."></textarea>
+      </div>
+
+      <div class="field" data-key="competitors">
+        <label class="field-label">Q13. Who are your main competitors?</label>
+        <textarea placeholder="List 2–3 competitor names or their websites..."></textarea>
+      </div>
+    </div>
+
+    <!-- SECTION 6: Timeline & Budget -->
+    <div class="form-section">
+      <div class="sec-title">Timeline & Budget</div>
+      <div class="sec-sub">No judgment — this helps us recommend the right package and plan accordingly.</div>
+
+      <div class="field" data-key="marketing">
+        <label class="field-label">Q17. Will SEO or digital marketing be important later? <span class="multi-hint">Select all that apply</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="checkbox" name="marketing" value="SEO"><label class="choice-label"><span class="choice-box"></span>SEO</label></div>
+          <div class="choice"><input type="checkbox" name="marketing" value="Google Ads"><label class="choice-label"><span class="choice-box"></span>Google Ads</label></div>
+          <div class="choice"><input type="checkbox" name="marketing" value="Social Media Ads"><label class="choice-label"><span class="choice-box"></span>Social Media Ads</label></div>
+          <div class="choice"><input type="checkbox" name="marketing" value="Not currently"><label class="choice-label"><span class="choice-box"></span>Not currently</label></div>
+          <div class="choice"><input type="checkbox" name="marketing" value="Not sure yet"><label class="choice-label"><span class="choice-box"></span>Not sure yet</label></div>
+        </div>
+      </div>
+
+      <div class="field" data-key="timeline">
+        <label class="field-label">Q18. Do you have a preferred launch date or timeline?</label>
+        <input type="text" placeholder="e.g. End of July 2025, or within 6 weeks..." />
+      </div>
+
+      <div class="field" data-required data-key="budget">
+        <label class="field-label">Q19. What is your estimated budget range? <span class="req">*</span></label>
+        <div class="choices grid2">
+          <div class="choice"><input type="radio" name="budget" value="Under 5,000 AED"><label class="choice-label"><span class="choice-dot"></span>Under 5,000 AED</label></div>
+          <div class="choice"><input type="radio" name="budget" value="5,000 – 10,000 AED"><label class="choice-label"><span class="choice-dot"></span>5,000 – 10,000 AED</label></div>
+          <div class="choice"><input type="radio" name="budget" value="10,000 – 20,000 AED"><label class="choice-label"><span class="choice-dot"></span>10,000 – 20,000 AED</label></div>
+          <div class="choice"><input type="radio" name="budget" value="20,000+ AED"><label class="choice-label"><span class="choice-dot"></span>20,000+ AED</label></div>
+          <div class="choice"><input type="radio" name="budget" value="Not decided yet"><label class="choice-label"><span class="choice-dot"></span>Not decided yet</label></div>
+        </div>
+        <div class="field-err">Please select one</div>
+      </div>
+
+      <div class="field" data-key="notes">
+        <label class="field-label">Q20. Is there anything else you'd like us to know?</label>
+        <textarea placeholder="Any specific requirements, concerns, or context that would help us prepare for the call..."></textarea>
+      </div>
+    </div>
+
+    <div class="submit-box">
+      <div class="submit-text">
+        <h3>Ready to submit?</h3>
+        <p>We'll review your answers and reach out within 24 hours.</p>
+      </div>
+      <button type="submit" class="btn-submit" id="sbtn">Send My Brief →</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+const form = document.getElementById('form');
+const fields = form.querySelectorAll('.field');
+const total = 20;
+
+function countAnswered(){
+  let n = 0;
+  const keys = ['name','company','email','phone','intro','goal','audience','type','sections','branding','content','inspiration','competitors','style','features','domain','marketing','timeline','budget','notes'];
+  keys.forEach(k => {
+    const f = form.querySelector(`[data-key="${k}"]`);
+    if(!f) return;
+    const inputs = f.querySelectorAll('input,textarea');
+    let filled = false;
+    inputs.forEach(i => {
+      if(i.type==='checkbox'||i.type==='radio'){ if(i.checked) filled=true; }
+      else if(i.value.trim()) filled=true;
+    });
+    if(filled) n++;
+  });
+  return n;
+}
+
+function updateProgress(){
+  const n = countAnswered();
+  const pct = Math.round(n/total*100);
+  document.getElementById('pfill').style.width = pct+'%';
+  document.getElementById('plabel').textContent = `${n} of ${total} answered`;
+  document.getElementById('ppct').textContent = pct+'%';
+}
+
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
+
+function getVal(key){
+  const f = form.querySelector(`[data-key="${key}"]`);
+  if(!f) return '';
+  const radio = f.querySelector('input[type=radio]:checked');
+  if(radio) return radio.value;
+  const checks = [...f.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.value);
+  if(checks.length) return checks.join(', ');
+  const text = f.querySelector('input[type=text],input[type=email],input[type=tel],textarea');
+  return text ? text.value.trim() : '';
+}
+
+function validate(){
+  let ok = true;
+  form.querySelectorAll('[data-required]').forEach(f => {
+    const key = f.dataset.key;
+    const type = f.dataset.type;
+    const val = getVal(key);
+    let valid = val.length > 0;
+    if(type==='email') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    if(type==='phone') valid = /^\+971[\d\s]{8,12}$/.test(val.replace(/\s+/g,' ').trim());
+    if(!valid){ f.classList.add('err'); ok=false; }
+    else f.classList.remove('err');
+  });
+  return ok;
+}
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  if(!validate()){
+    form.querySelector('.err')?.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const btn = document.getElementById('sbtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const name = getVal('name');
+  const company = getVal('company');
+  const email = getVal('email');
+  const phone = getVal('phone');
+  const intro = getVal('intro');
+  const goal = getVal('goal');
+  const audience = getVal('audience');
+  const type = getVal('type');
+  const sections = getVal('sections');
+  const branding = getVal('branding');
+  const content = getVal('content');
+  const inspiration = getVal('inspiration');
+  const competitors = getVal('competitors');
+  const style = getVal('style');
+  const features = getVal('features');
+  const domain = getVal('domain');
+  const marketing = getVal('marketing');
+  const timeline = getVal('timeline');
+  const budget = getVal('budget');
+  const notes = getVal('notes');
+
+  // Send to Formspree
+  try {
+    await fetch('https://formspree.io/f/mbdbldgv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        Name: name,
+        Company: company,
+        Email: email,
+        Phone: phone,
+        Introduction: intro,
+        Goal: goal,
+        Audience: audience,
+        ProjectType: type,
+        Sections: sections,
+        Branding: branding,
+        Content: content,
+        Inspiration: inspiration,
+        Competitors: competitors,
+        Style: style,
+        Features: features,
+        Domain: domain,
+        Marketing: marketing,
+        Timeline: timeline,
+        Budget: budget,
+        Notes: notes
+      })
+    });
+  } catch(err) {
+    console.error('Formspree error:', err);
+  }
+
+  // WhatsApp redirect
+  const msg = encodeURIComponent(
+    `Hi Nearive! I just submitted my project brief.\n\nName: ${name}\nCompany: ${company}\nGoal: ${goal}\nBudget: ${budget}\n\nLooking forward to the strategy call!`
+  );
+  document.getElementById('wa-link').href = `https://wa.me/971585582862?text=${msg}`;
+
+  setTimeout(()=>{
+    form.style.display='none';
+    const s = document.getElementById('success');
+    s.style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }, 700);
+});
+</script>
+
+<!-- ===================== NEDA POPUP ===================== -->
+<style>
+@keyframes nedaS1{0%,100%{opacity:0;transform:translateY(0)}25%{opacity:1}75%{opacity:0;transform:translateY(-22px) translateX(-2px)}}
+@keyframes nedaS2{0%,100%{opacity:0;transform:translateY(0)}25%{opacity:1}75%{opacity:0;transform:translateY(-30px) translateX(2px)}}
+@keyframes nedaS3{0%,100%{opacity:0;transform:translateY(0)}25%{opacity:1}75%{opacity:0;transform:translateY(-20px) translateX(-1px)}}
+.neda-sv1{animation:nedaS1 2.4s ease-in-out infinite 0s}
+.neda-sv2{animation:nedaS2 2.4s ease-in-out infinite 0.6s}
+.neda-sv3{animation:nedaS3 2.4s ease-in-out infinite 1.2s}
+@keyframes nedaPopIn{from{opacity:0;transform:scale(0.95) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes nedaChatIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes nedaDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes nedaPulse{0%,100%{transform:scale(1);opacity:0.6}100%{transform:scale(2);opacity:0}}
+
+#neda-popup{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  width:300px;background:#fff;border-radius:20px;
+  overflow:hidden;border:1px solid #dde3f0;
+  box-shadow:0 12px 40px rgba(10,22,40,0.18);
+  animation:nedaPopIn .4s ease-out;
+  font-family:'Inter',sans-serif;
+}
+#neda-popup.hidden{display:none;}
+
+.neda-top{background:#0a1628;padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;}
+.neda-notif-icon{width:28px;height:28px;border-radius:8px;background:rgba(45,127,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.neda-notif-label{font-size:11px;color:#8a9ab5;text-align:center;}
+.neda-notif-dot{width:6px;height:6px;border-radius:50%;background:#1dd278;flex-shrink:0;}
+.neda-close{background:none;border:none;color:rgba(255,255,255,0.3);font-size:15px;cursor:pointer;padding:2px 6px;line-height:1;position:absolute;right:10px;top:50%;transform:translateY(-50%);}
+.neda-close:hover{color:#fff;}
+
+.neda-body{padding:22px 18px 22px;text-align:center;}
+.neda-lazy{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#0a1628;letter-spacing:-0.4px;line-height:1.25;margin-bottom:8px;}
+.neda-lazy span{color:#2d7fff;}
+.neda-sub{font-family:'Inter',sans-serif;font-weight:500;font-size:13px;color:#8a9ab5;line-height:1.6;}
+.neda-sub strong{color:#0a1628;font-weight:600;}
+
+.neda-choices{display:flex;gap:16px;margin-top:22px;justify-content:center;}
+.neda-choice{display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;}
+.neda-box-icon{width:100px;height:100px;border-radius:18px;background:#f4f6fb;border:2px solid #dde3f0;display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.neda-choice:hover .neda-box-icon{border-color:#2d7fff;background:#eef4ff;}
+.neda-choice.no:hover .neda-box-icon{border-color:#e24b4a;background:#fff5f5;}
+.neda-box-label{font-size:12px;font-weight:600;color:#8a9ab5;transition:color .15s;}
+.neda-choice:hover .neda-box-label{color:#0a1628;}
+
+/* Chat area */
+.neda-chat{display:none;flex-direction:column;margin-top:16px;border-top:1px solid #f0f3fa;padding-top:12px;text-align:left;}
+.neda-chat.open{display:flex;animation:nedaChatIn .3s ease;}
+.neda-msgs{display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto;margin-bottom:8px;}
+.neda-bot-msg{display:flex;gap:6px;align-items:flex-start;}
+.neda-bot-av{width:18px;height:18px;border-radius:50%;background:#0a1628;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.neda-bot-bubble{background:#f4f6fb;border-radius:3px 8px 8px 8px;padding:7px 10px;font-size:11px;color:#0a1628;line-height:1.5;max-width:92%;}
+.neda-user-bubble{background:#2d7fff;border-radius:8px 3px 8px 8px;padding:7px 10px;font-size:11px;color:#fff;line-height:1.5;align-self:flex-end;max-width:82%;}
+.neda-typing{display:flex;gap:3px;padding:7px 10px;background:#f4f6fb;border-radius:3px 8px 8px 8px;width:fit-content;}
+.neda-tdot{width:4px;height:4px;border-radius:50%;background:#b8c4d8;animation:nedaDot 1.2s infinite;}
+.neda-tdot:nth-child(2){animation-delay:.2s}.neda-tdot:nth-child(3){animation-delay:.4s}
+
+/* Input row */
+.neda-input-row{display:flex;gap:6px;align-items:center;}
+.neda-text-in{flex:1;border:1px solid #dde3f0;border-radius:8px;padding:7px 10px;font-size:11px;font-family:'Inter',sans-serif;outline:none;color:#0a1628;}
+.neda-text-in:focus{border-color:#2d7fff;}
+
+/* Voice button */
+.neda-mic-wrap{position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.neda-mic-ripple{position:absolute;width:28px;height:28px;border-radius:50%;border:2px solid #e24b4a;animation:nedaPulse 1s ease-out infinite;display:none;pointer-events:none;}
+.neda-mic-btn{width:32px;height:32px;border-radius:50%;background:#f4f6fb;border:1.5px solid #dde3f0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.neda-mic-btn.recording{background:#e24b4a;border-color:#e24b4a;}
+.neda-mic-btn.recording + .neda-mic-ripple{display:block;}
+.neda-mic-hint{font-size:9px;color:#b8c4d8;text-align:center;margin-top:4px;}
+
+/* Form fill highlight */
+.neda-filled{border-color:#1dd278 !important;box-shadow:0 0 0 3px rgba(29,210,120,.12) !important;transition:all .4s ease !important;}
+</style>
+
+<div id="neda-popup">
+  <div class="neda-top">
+    <div class="neda-notif-icon">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2d7fff" stroke-width="2.5" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+    </div>
+    <div class="neda-notif-label">New message from Nearive</div>
+    <div class="neda-notif-dot"></div>
+    <button class="neda-close" onclick="document.getElementById('neda-popup').classList.add('hidden')">✕</button>
+  </div>
+
+  <div class="neda-body">
+    <div class="neda-lazy"><span>Too Lazzy</span> to fill<br>the brief form??</div>
+    <div class="neda-sub">Relax, Drink your coffee<br><strong>Voice me and i'll do the rest.</strong></div>
+
+    <div class="neda-choices">
+      <div class="neda-choice no" onclick="document.getElementById('neda-popup').classList.add('hidden')">
+        <div class="neda-box-icon">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <line x1="10" y1="10" x2="34" y2="34" stroke="#e24b4a" stroke-width="4" stroke-linecap="round"/>
+            <line x1="34" y1="10" x2="10" y2="34" stroke="#e24b4a" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="neda-box-label">No Thanks</div>
+      </div>
+
+      <div class="neda-choice" onclick="nedaOpenChat()">
+        <div class="neda-box-icon">
+          <svg width="72" height="80" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+            <g class="neda-sv1"><path d="M72 52 C70 45 74 40 72 33" stroke="rgba(100,100,100,0.55)" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+            <g class="neda-sv2"><path d="M95 46 C93 38 97 32 95 24" stroke="rgba(100,100,100,0.55)" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+            <g class="neda-sv3"><path d="M118 52 C116 45 120 40 118 33" stroke="rgba(100,100,100,0.55)" stroke-width="4" stroke-linecap="round" fill="none"/></g>
+            <ellipse cx="97" cy="198" rx="52" ry="8" fill="rgba(0,0,0,0.08)"/>
+            <path d="M138 90 Q168 90 168 115 Q168 142 138 142" fill="none" stroke="#555" stroke-width="14" stroke-linecap="round"/>
+            <path d="M138 90 Q160 90 160 115 Q160 140 138 140" fill="none" stroke="#c8c8c8" stroke-width="7" stroke-linecap="round"/>
+            <path d="M52 68 L58 178 Q59 188 70 188 L124 188 Q135 188 136 178 L142 68 Z" fill="#c8c8c8" stroke="#555" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M62 82 L65 158" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round"/>
+            <ellipse cx="97" cy="68" rx="45" ry="11" fill="#555"/>
+            <ellipse cx="97" cy="66" rx="42" ry="9" fill="#3d1a05"/>
+            <ellipse cx="97" cy="66" rx="45" ry="11" fill="none" stroke="#555" stroke-width="5"/>
+            <line x1="111" y1="108" x2="83" y2="155" stroke="#2d7fff" stroke-width="8" stroke-linecap="round"/>
+            <path d="M138 90 Q168 90 168 115 Q168 142 138 142" fill="none" stroke="#555" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="neda-box-label">Yes Please</div>
+      </div>
+    </div>
+
+    <div class="neda-chat" id="neda-chat">
+      <div class="neda-msgs" id="neda-msgs"></div>
+      <div class="neda-mic-hint" id="neda-mic-hint">Hold to speak, release to send</div>
+      <div class="neda-input-row" style="margin-top:6px;">
+        <input class="neda-text-in" id="neda-text-in" placeholder="or type here…" onkeydown="if(event.key==='Enter')nedaSendText()">
+        <div class="neda-mic-wrap">
+          <button class="neda-mic-btn" id="neda-mic-btn"
+            onmousedown="nedaStartVoice()" onmouseup="nedaStopVoice()"
+            ontouchstart="nedaStartVoice()" ontouchend="nedaStopVoice()"
+            aria-label="Hold to speak">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10c0 3.9 3.1 7 7 7s7-3.1 7-7"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+          </button>
+          <div class="neda-mic-ripple" id="neda-mic-ripple"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const NEDA_SYSTEM = `You are Neda, a friendly sales assistant at Nearive, a UAE web design agency. Your job is to have a natural voice conversation with potential clients to fill in a project brief form for them.
+
+Ask ONE question at a time in a warm, conversational way. Keep each message to 1-2 sentences max. After each answer, extract the relevant info and confirm briefly, then ask the next question.
+
+Collect this info in order:
+1. Full name
+2. Company name  
+3. Email address
+4. Phone number (UAE format)
+5. What their business does
+6. Main goal for the website (lead generation / showcase / sell products / booking / credibility)
+7. Target audience (B2B / B2C / local / international)
+8. Type of website (one-page / multi-page / landing page)
+9. Which sections they need (Home / About / Services / Portfolio / Blog / Contact etc)
+10. Special features (contact form / WhatsApp / booking / payment / multilingual etc)
+11. Do they have branding (logo / colors / guidelines)
+12. Is content ready (text and images)
+13. Preferred style (minimal / corporate / luxury / bold / playful)
+14. Website inspiration or competitors
+15. Timeline
+16. Budget range
+
+When you have collected a piece of info, include a JSON block at the END of your message (after your conversational text) in this exact format on a new line:
+FILL:{"field":"fieldname","value":"value"}
+
+Field names: name, company, email, phone, intro, goal, audience, type, sections, features, branding, content, style, inspiration, competitors, timeline, budget
+
+For checkbox fields (goal, audience, sections, features, branding, style) use comma-separated values.
+
+Once all info is collected, say a warm goodbye and tell them the form is filled — they just need to review and submit.
+
+Never use bullet lists. Be warm and natural like a real person on a voice call.`;
+
+  let nedaHistory = [];
+  let nedaInited = false;
+  let nedaRecognition = null;
+  let nedaIsRecording = false;
+
+  window.nedaOpenChat = async function() {
+    document.getElementById('neda-chat').classList.add('open');
+    if (!nedaInited) {
+      nedaInited = true;
+      nedaHistory.push({role:'user', content:'Hello, I want help filling the form.'});
+      nedaShowTyping();
+      try {
+        const r = await nedaCallClaude(nedaHistory);
+        nedaHideTyping();
+        nedaAddBot(r);
+        nedaHistory.push({role:'assistant', content:r});
+        nedaProcessFill(r);
+      } catch(e) {
+        nedaHideTyping();
+        nedaAddBot("Hi! I'm Neda from Nearive. Let's fill this form together — what's your full name?");
+      }
+    }
+  };
+
+  async function nedaCallClaude(msgs) {
+    const r = await fetch('/api/chat', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({system:NEDA_SYSTEM, messages:msgs, max_tokens:400})
+    });
+    const d = await r.json();
+    return d.content?.[0]?.text || 'Something went wrong.';
+  }
+
+  function nedaAddBot(text) {
+    const clean = text.replace(/FILL:\{.*?\}/g,'').trim();
+    const box = document.getElementById('neda-msgs');
+    const w = document.createElement('div'); w.className='neda-bot-msg';
+    w.innerHTML=`<div class="neda-bot-av"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#2d7fff" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><div class="neda-bot-bubble">${clean}</div>`;
+    box.appendChild(w); box.scrollTop=box.scrollHeight;
+  }
+
+  function nedaAddUser(text) {
+    const box = document.getElementById('neda-msgs');
+    const d = document.createElement('div'); d.className='neda-user-bubble'; d.textContent=text;
+    box.appendChild(d); box.scrollTop=box.scrollHeight;
+  }
+
+  function nedaShowTyping() {
+    const box = document.getElementById('neda-msgs');
+    const d = document.createElement('div'); d.id='neda-typing'; d.className='neda-typing';
+    d.innerHTML='<div class="neda-tdot"></div><div class="neda-tdot"></div><div class="neda-tdot"></div>';
+    box.appendChild(d); box.scrollTop=box.scrollHeight;
+  }
+
+  function nedaHideTyping() { document.getElementById('neda-typing')?.remove(); }
+
+  function nedaProcessFill(text) {
+    const matches = text.matchAll(/FILL:\{"field":"(\w+)","value":"([^"]+)"\}/g);
+    for (const m of matches) {
+      nedaFillField(m[1], m[2]);
+    }
+  }
+
+  function nedaFillField(field, value) {
+    // Text inputs
+    const textMap = {name:'name', company:'company', email:'email', phone:'phone', intro:'intro', inspiration:'inspiration', competitors:'competitors', timeline:'timeline'};
+    if (textMap[field]) {
+      const el = document.querySelector(`[data-key="${field}"] input, [data-key="${field}"] textarea`);
+      if (el) { el.value = value; el.classList.add('neda-filled'); setTimeout(()=>el.classList.remove('neda-filled'),2000); }
+    }
+    // Radio inputs
+    const radioFields = ['type','domain','content','budget'];
+    if (radioFields.includes(field)) {
+      const radios = document.querySelectorAll(`input[name="${field}"]`);
+      radios.forEach(r => { if (value.toLowerCase().includes(r.value.toLowerCase())) { r.checked=true; r.dispatchEvent(new Event('change')); }});
+    }
+    // Checkbox inputs
+    const checkFields = ['goal','audience','sections','features','branding','style','marketing'];
+    if (checkFields.includes(field)) {
+      const vals = value.split(',').map(v=>v.trim().toLowerCase());
+      const boxes = document.querySelectorAll(`input[name="${field}"]`);
+      boxes.forEach(b => { if (vals.some(v => b.value.toLowerCase().includes(v) || v.includes(b.value.toLowerCase()))) { b.checked=true; b.dispatchEvent(new Event('change')); }});
+    }
+  }
+
+  async function nedaSend(text) {
+    nedaAddUser(text);
+    nedaHistory.push({role:'user', content:text});
+    nedaShowTyping();
+    try {
+      const r = await nedaCallClaude(nedaHistory);
+      nedaHideTyping();
+      nedaAddBot(r);
+      nedaHistory.push({role:'assistant', content:r});
+      nedaProcessFill(r);
+    } catch(e) { nedaHideTyping(); nedaAddBot('Something went wrong. Please try again.'); }
+  }
+
+  window.nedaSendText = function() {
+    const inp = document.getElementById('neda-text-in');
+    const text = inp.value.trim(); if(!text) return;
+    inp.value = ''; nedaSend(text);
+  };
+
+  window.nedaStartVoice = function() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      nedaAddBot("Voice not supported in this browser. Please type instead or use Chrome.");
+      return;
+    }
+    if (nedaIsRecording) return;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    nedaRecognition = new SR();
+    nedaRecognition.lang = 'en-US';
+    nedaRecognition.interimResults = false;
+    nedaRecognition.onstart = () => {
+      nedaIsRecording = true;
+      document.getElementById('neda-mic-btn').classList.add('recording');
+      document.getElementById('neda-mic-ripple').style.display = 'block';
+      document.getElementById('neda-mic-hint').textContent = 'Listening…';
+    };
+    nedaRecognition.onresult = (e) => {
+      const t = e.results[0][0].transcript;
+      nedaSend(t);
+    };
+    nedaRecognition.onend = () => {
+      nedaIsRecording = false;
+      document.getElementById('neda-mic-btn').classList.remove('recording');
+      document.getElementById('neda-mic-ripple').style.display = 'none';
+      document.getElementById('neda-mic-hint').textContent = 'Hold to speak, release to send';
+    };
+    nedaRecognition.onerror = () => {
+      nedaIsRecording = false;
+      document.getElementById('neda-mic-btn').classList.remove('recording');
+      document.getElementById('neda-mic-ripple').style.display = 'none';
+    };
+    nedaRecognition.start();
+  };
+
+  window.nedaStopVoice = function() {
+    if (nedaRecognition && nedaIsRecording) { nedaRecognition.stop(); }
+  };
+
+})();
+</script>
+</body>
+</html>
