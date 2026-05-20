@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nearive — Web Design, SEO & Growth for UAE & GCC</title>
-<meta name="description" content="Web design, SEO, and paid campaigns for UAE and GCC businesses ready to scale.">
+<title>Nearive — Web Design, SEO & Paid Campaigns · Based in Dubai</title>
+<meta name="description" content="Web design, SEO & paid campaigns — based in Dubai, serving clients worldwide.">
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="favicon.png">
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nearive">
 <meta property="og:title" content="Nearive — Your growth, engineered.">
-<meta property="og:description" content="Web design, SEO, and paid campaigns for UAE and GCC businesses ready to scale.">
+<meta property="og:description" content="Web design, SEO & paid campaigns — based in Dubai, serving clients worldwide.">
 <meta property="og:url" content="https://nearive.com/">
 <meta property="og:image" content="https://nearive.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Nearive — Your growth, engineered.">
-<meta name="twitter:description" content="Web design, SEO, and paid campaigns for UAE and GCC businesses ready to scale.">
+<meta name="twitter:description" content="Web design, SEO & paid campaigns — based in Dubai, serving clients worldwide.">
 <meta name="twitter:image" content="https://nearive.com/og-image.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
@@ -346,6 +346,9 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
   .grid{grid-template-columns:repeat(2,1fr)}
   .card.featured{grid-column:span 1}
   header,.hero,.filter-bar,.process-section,footer{padding-left:28px;padding-right:28px}
+  footer{flex-direction:column;align-items:flex-start;gap:0}
+  .footer-right{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);width:100%}
+  .footer-sub{word-break:break-word;line-height:1.9}
 }
 @media(max-width:600px){
   .grid{grid-template-columns:1fr}
@@ -450,7 +453,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="hero-inner">
     <div class="hero-left">
       <h1>Your growth,<br><span class="h-blue">engineered.</span></h1>
-      <p class="hero-desc">Web design, SEO, and paid campaigns for UAE and GCC businesses ready to scale.</p>
+      <p class="hero-desc">Web design, SEO & paid campaigns — based in Dubai, serving clients worldwide.</p>
       <div class="hero-ctas">
         <a href="Nearive-WebFolio-form.html" target="_blank" class="btn-form">Fill in the Brief →</a>
         <a href="https://wa.me/971585582998" target="_blank" class="btn-wa">
@@ -543,6 +546,10 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 </section>
 
 
+<!-- CURRENCY DETECTOR -->
+<div id="currency-notice" style="display:none;text-align:center;padding:10px 20px;background:#f0f6ff;border-top:1px solid #c8d8f8;border-bottom:1px solid #c8d8f8;font-size:13px;color:#4a6a94;">
+  <span id="currency-flag"></span> Prices shown in <strong id="currency-label"></strong> based on your location.
+</div>
 <!-- PRICING -->
 <section class="pricing-section">
   <div class="pricing-top">
@@ -563,7 +570,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
       <div class="plan-tagline">For freelancers, startups, and businesses that need a clean, professional presence fast.</div>
       <div class="plan-price">
         <span class="from">Starting from</span>
-        <div><span class="currency">AED</span><span class="amount">2,900</span></div>
+        <div><span class="currency" id="curr1">AED</span><span class="amount" id="amt1">2,900</span></div>
         <span class="note">Single-page website</span>
       </div>
       <ul class="plan-features">
@@ -590,7 +597,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
       <div class="plan-tagline">For established businesses that want a polished, multi-page site that builds real trust and drives leads.</div>
       <div class="plan-price">
         <span class="from">Starting from</span>
-        <div><span class="currency">AED</span><span class="amount">5,500</span></div>
+        <div><span class="currency" id="curr2">AED</span><span class="amount" id="amt2">5,500</span></div>
         <span class="note">Up to 5 pages</span>
       </div>
       <ul class="plan-features">
@@ -618,7 +625,7 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
       <div class="plan-tagline">For brands that want a fully custom-coded experience — unique interactions, animations, and architecture.</div>
       <div class="plan-price">
         <span class="from">Starting from</span>
-        <div><span class="currency" style="color:var(--purple)">AED</span><span class="amount" style="color:var(--navy)">12,500</span></div>
+        <div><span class="currency" style="color:var(--purple)" id="curr3">AED</span><span class="amount" style="color:var(--navy)" id="amt3">12,500</span></div>
         <span class="note">Fully custom build</span>
       </div>
       <ul class="plan-features">
@@ -1002,6 +1009,63 @@ function doFilter(btn,cat){
 
 const grid=document.getElementById('grid');
 PROJECTS.forEach(p=>grid.appendChild(buildCard(p)));
+</script>
+
+<script>
+(function(){
+  const prices = {
+    AED: { symbol:'AED', p1:'2,900', p2:'5,500', p3:'12,500', plus:'+ ', flag:'🇦🇪', label:'AED (UAE Dirham)' },
+    USD: { symbol:'$',   p1:'950',   p2:'1,950', p3:'3,950',  plus:'+ ', flag:'🇺🇸', label:'USD (US Dollar)' },
+    CAD: { symbol:'CAD', p1:'1,290', p2:'2,690', p3:'5,390',  plus:'+ ', flag:'🇨🇦', label:'CAD (Canadian Dollar)' },
+    EUR: { symbol:'€',   p1:'890',   p2:'1,790', p3:'3,690',  plus:'+ ', flag:'🇪🇺', label:'EUR (Euro)' },
+    AUD: { symbol:'AUD', p1:'1,550', p2:'2,950', p3:'6,150',  plus:'+ ', flag:'🇦🇺', label:'AUD (Australian Dollar)' },
+  };
+
+  const gcc = ['AE','SA','KW','QA','BH','OM'];
+  const europe = ['GB','DE','FR','IT','ES','NL','BE','PT','AT','CH','SE','NO','DK','FI','PL','GR','IE','CZ','HU','RO','SK','HR','SI','EE','LV','LT','LU','MT','CY'];
+
+  function getCurrency(country) {
+    if (gcc.includes(country)) return 'AED';
+    if (country === 'US') return 'USD';
+    if (country === 'CA') return 'CAD';
+    if (country === 'AU') return 'AUD';
+    if (europe.includes(country)) return 'EUR';
+    return 'USD'; // default for rest of world
+  }
+
+  function applyPrices(currency) {
+    if (currency === 'AED') return; // default, no change needed
+    const p = prices[currency];
+    if (!p) return;
+
+    document.getElementById('curr1').textContent = p.symbol;
+    document.getElementById('amt1').textContent = p.p1;
+    document.getElementById('curr2').textContent = p.symbol;
+    document.getElementById('amt2').textContent = p.p2;
+    document.getElementById('curr3').textContent = p.symbol;
+    document.getElementById('amt3').textContent = p.p3;
+
+    // Update "+" note for tier 3
+    const note3 = document.querySelector('#amt3').closest('.plan-price').querySelector('.note');
+    if (note3) note3.textContent = 'Fully custom build';
+
+    // Show currency notice
+    const notice = document.getElementById('currency-notice');
+    if (notice) {
+      notice.style.display = 'block';
+      document.getElementById('currency-flag').textContent = p.flag + ' ';
+      document.getElementById('currency-label').textContent = p.label;
+    }
+  }
+
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(d => {
+      const currency = getCurrency(d.country_code);
+      applyPrices(currency);
+    })
+    .catch(() => {}); // silent fail — keeps AED
+})();
 </script>
 </body>
 </html>
