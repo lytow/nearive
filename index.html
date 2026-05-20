@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nearive — Our Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0a1628;--navy2:#0f2040;--blue:#2d7fff;--purple:#7b5ea7;
+  --grey:#8a9ab5;--bg:#f4f6fb;--border:#dde3f0;--card:#ffffff;
+  --wa:#25d366;
+}
+body{background:var(--bg);font-family:'Inter',sans-serif;color:var(--navy);-webkit-font-smoothing:antialiased}
+
+/* LOGO */
+.logo-mark{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
+.logo-text{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;letter-spacing:-1px;color:var(--navy);line-height:1}
+.logo-icon rect{transition:fill .2s}
+
+/* HEADER — logo only + one CTA */
+header{
+  background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 60px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.header-actions{display:flex;align-items:center;gap:10px}
+
+/* CTA buttons */
+.btn-form{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--navy);color:#fff;
+  padding:9px 20px;border-radius:8px;
+  font-size:13px;font-weight:600;text-decoration:none;
+  transition:background .2s;white-space:nowrap;
+}
+.btn-form:hover{background:var(--navy2)}
+
+.btn-wa{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--wa);color:#fff;
+  padding:9px 20px;border-radius:8px;
+  font-size:13px;font-weight:600;text-decoration:none;
+  transition:opacity .2s;white-space:nowrap;
+}
+.btn-wa:hover{opacity:0.9}
+
+.wa-icon{width:18px;height:18px;flex-shrink:0}
+
+/* HERO */
+.hero{background:var(--navy);padding:96px 60px 88px;position:relative;overflow:hidden;min-height:auto}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(45,127,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,127,255,.06) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(123,94,167,.18) 0%,transparent 65%);
+  pointer-events:none;
+}
+.blob2{position:absolute;bottom:-100px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(45,127,255,.12) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:48px;width:100%}
+.hero-left{flex:1;min-width:0;max-width:580px}
+.hero-right{flex-shrink:0;width:440px;display:flex;align-items:center;justify-content:center}
+
+/* Rotating slash brand mark */
+.n-stage{width:100%;height:380px;position:relative;display:flex;align-items:center;justify-content:center;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.n-stage:active{cursor:grabbing}
+.n-svg{
+  width:100%;max-width:340px;height:auto;overflow:visible;
+  transform-origin:50% 50%;transform:rotate(27deg);
+  animation:spinSettle 5s forwards;
+  pointer-events:none;  /* let stage handle pointer */
+}
+
+/* Speed readout (gamified) */
+.n-speed{
+  position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  background:rgba(10,22,40,.55);border:1px solid rgba(255,255,255,.08);
+  padding:10px 18px;border-radius:14px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:140px;
+  z-index:3;pointer-events:none;
+  opacity:0;transition:opacity .4s;
+}
+.n-stage.touched .n-speed{opacity:1}
+.n-speed-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.n-speed-label{font-size:10px;color:var(--grey);letter-spacing:1.8px;font-weight:700;text-transform:uppercase}
+.n-speed-row.best .n-speed-label{color:var(--blue)}
+.n-speed-num{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.4px;font-variant-numeric:tabular-nums;line-height:1}
+.n-speed-row.best .n-speed-num{font-size:16px;color:var(--blue)}
+.n-speed-unit{font-size:9px;color:var(--grey);letter-spacing:1.5px;font-weight:600;margin-left:3px}
+.n-hint{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  font-size:10px;color:var(--grey);letter-spacing:2px;text-transform:uppercase;
+  font-weight:600;opacity:.55;transition:opacity .35s;pointer-events:none;white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+}
+.n-hint::before,.n-hint::after{content:'';width:14px;height:1px;background:currentColor;opacity:.5}
+.n-stage.touched .n-hint{opacity:0}
+.n-slash{stroke-width:18;stroke-linecap:round;fill:none}
+.n-slash.main{stroke:var(--blue);filter:drop-shadow(0 0 14px rgba(45,127,255,.4))}
+.n-slash.ghost{stroke:var(--purple);opacity:.35;transform:translate(6px,0)}
+.n-slash.dim{stroke:rgba(255,255,255,.08)}
+
+@keyframes spinSettle{
+  0%   {transform:rotate(27deg);  animation-timing-function:linear}
+  18%  {transform:rotate(27deg);  animation-timing-function:cubic-bezier(.18,.72,.25,1)}
+  100% {transform:rotate(747deg)}
+}
+
+.n-orbit{
+  position:absolute;width:340px;height:340px;
+  border:1px dashed rgba(255,255,255,.08);border-radius:50%;
+  animation:orbitSpin 28s linear infinite;pointer-events:none;
+}
+.n-orbit::before,
+.n-orbit::after{
+  content:'';position:absolute;width:8px;height:8px;border-radius:50%;
+  background:var(--blue);box-shadow:0 0 16px var(--blue);
+}
+.n-orbit::before{top:-4px;left:50%;transform:translateX(-50%)}
+.n-orbit::after{bottom:-4px;left:50%;transform:translateX(-50%);background:var(--purple);box-shadow:0 0 16px var(--purple)}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+
+.n-particles{position:absolute;inset:0;pointer-events:none}
+.n-particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--blue);opacity:0;animation:particle 4s ease-out infinite}
+.n-particle:nth-child(1){top:20%;left:30%;animation-delay:0s}
+.n-particle:nth-child(2){top:50%;left:70%;animation-delay:.6s;background:var(--purple)}
+.n-particle:nth-child(3){top:75%;left:25%;animation-delay:1.2s}
+.n-particle:nth-child(4){top:35%;left:80%;animation-delay:1.8s;background:var(--purple)}
+.n-particle:nth-child(5){top:65%;left:50%;animation-delay:2.4s}
+.n-particle:nth-child(6){top:15%;left:65%;animation-delay:3s;background:var(--purple)}
+@keyframes particle{
+  0%{opacity:0;transform:translate(0,0) scale(.5)}
+  20%{opacity:.8}
+  100%{opacity:0;transform:translate(40px,-60px) scale(1.4)}
+}
+
+h1{font-size:clamp(38px,5vw,64px);font-weight:700;line-height:1.05;letter-spacing:-2px;color:#fff;margin-bottom:18px}
+.h-blue{color:var(--blue)}
+.hero-desc{font-size:16px;color:var(--grey);line-height:1.7;max-width:480px;margin-bottom:32px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+
+@media(max-width:980px){
+  .hero-inner{flex-direction:column;align-items:flex-start;gap:48px}
+  .hero-right{width:100%;max-width:380px}
+}
+@media(max-width:600px){
+  .n-stage{height:240px}
+  .n-svg{max-width:200px}
+  .n-orbit{width:200px;height:200px}
+  .n-orbit::before,.n-orbit::after{width:6px;height:6px}
+  .n-particle{width:3px;height:3px}
+  .n-speed{padding:7px 12px;min-width:114px;border-radius:11px;top:6px}
+  .n-speed-row{gap:8px}
+  .n-speed-label{font-size:9px;letter-spacing:1.4px}
+  .n-speed-num{font-size:15px}
+  .n-speed-row.best .n-speed-num{font-size:13px}
+  .n-speed-unit{font-size:8px}
+  .n-hint{bottom:8px;font-size:9px;letter-spacing:1.4px}
+}
+
+/* FILTER */
+.works-intro{background:#fff;padding:56px 60px 20px;text-align:center}
+.works-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:10px}
+.works-title{font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-1.2px;color:var(--navy);line-height:1.15;font-family:'Plus Jakarta Sans',sans-serif}
+@media(max-width:600px){.works-intro{padding:44px 20px 16px}}
+.filter-bar{background:#fff;border-bottom:1px solid var(--border);padding:16px 60px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.fbtn{padding:6px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--grey);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;transition:all .18s}
+.fbtn:hover{border-color:var(--blue);color:var(--blue)}
+.fbtn.active{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:500}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+
+/* CARD */
+.card{background:var(--card);display:flex;flex-direction:column;transition:background .2s}
+.card:hover{background:#fafbff}
+.card.featured{grid-column:span 1}
+
+/* DEVICE WRAP */
+.device-wrap{
+  background:linear-gradient(160deg,#eef2fa 0%,#e4eaf6 100%);
+  border-bottom:1px solid var(--border);
+  padding:24px 24px 0;
+  display:flex;align-items:flex-end;justify-content:center;
+  min-height:220px;position:relative;overflow:hidden;
+}
+.device-wrap::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(45,127,255,.07) 0%,transparent 70%);pointer-events:none}
+
+
+.scroll-hint{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  background:rgba(10,22,40,.72);color:#fff;
+  font-size:10px;padding:3px 10px;border-radius:100px;
+  white-space:nowrap;opacity:0;transition:opacity .25s;
+  pointer-events:none;z-index:10;letter-spacing:.3px;
+}
+.device-wrap:hover .scroll-hint{opacity:1}
+
+/* LAPTOP */
+.laptop{width:100%;max-width:280px;flex-shrink:0}
+
+.laptop-lid{background:#252525;border-radius:8px 8px 0 0;padding:5px 5px 0;box-shadow:0 -4px 20px rgba(0,0,0,.12);position:relative}
+.laptop-lid::before{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:#1a1a1a;border-radius:50%;z-index:2}
+.laptop-screen{border-radius:4px 4px 0 0;overflow:hidden;aspect-ratio:16/10;background:#111;position:relative;cursor:default}
+.site-img{width:100%;height:auto;min-height:100%;display:block;transform:translateY(0%);transform-origin:top center;transition:transform 4s cubic-bezier(0.4,0,0.2,1);will-change:transform}
+.laptop-screen:hover .site-img{transform:translateY(-55%)}
+.screen-loader{position:absolute;inset:0;background:#f0f2f8;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:opacity .4s}
+.screen-loader.done{opacity:0;pointer-events:none}
+.loader-dots{display:flex;gap:5px}
+.loader-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);opacity:.3;animation:dp 1.2s ease infinite}
+.loader-dot:nth-child(2){animation-delay:.15s;background:var(--purple)}
+.loader-dot:nth-child(3){animation-delay:.30s}
+@keyframes dp{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:.9;transform:scale(1.1)}}
+.screen-url{font-size:9px;color:#aab;font-family:monospace}
+.screen-error{position:absolute;inset:0;background:#f0f2f8;z-index:3;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:10px;color:#aab;text-align:center;padding:10px}
+.laptop-base{height:10px;background:linear-gradient(180deg,#c8c8c8,#b0b0b0);margin:0 -3px;border-radius:0 0 2px 2px}
+.laptop-foot{height:4px;background:linear-gradient(180deg,#a8a8a8,#989898);margin:0 20px;border-radius:0 0 4px 4px}
+
+/* CARD BODY */
+.card-body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.card-title{font-size:16px;font-weight:600;letter-spacing:-.3px;color:var(--navy);line-height:1.2;flex:1}
+.cat-badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;font-family:'Inter',sans-serif;letter-spacing:.3px;flex-shrink:0;margin-top:2px}
+.card-url{font-size:11px;color:var(--grey);margin-bottom:9px;font-family:monospace}
+.card-desc{font-size:13px;color:#6a7a94;line-height:1.65;flex:1;margin-bottom:12px}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.tag{font-size:11px;padding:3px 9px;border-radius:100px;border:1px solid var(--border);color:var(--grey)}
+.card-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;width:fit-content;transition:gap .18s}
+.card-link:hover{gap:9px}
+
+/* PROCESS SECTION */
+.process-section{background:var(--bg);padding:80px 60px;position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.process-inner{position:relative;z-index:1}
+.section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:12px}
+.section-title{font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-1.5px;color:var(--navy);margin-bottom:8px;line-height:1.1;font-family:'Plus Jakarta Sans',sans-serif}
+.section-sub{font-size:15px;color:#5a6a84;margin-bottom:48px;max-width:520px;line-height:1.6}
+
+/* BENTO STEPS GRID */
+.steps-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-auto-rows:auto;gap:14px;margin-bottom:48px}
+.step{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px 28px 24px;
+  position:relative;
+  overflow:hidden;
+  min-height:200px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  box-shadow:0 1px 0 rgba(10,22,40,.02);
+  transition:transform .2s, box-shadow .2s;
+}
+.step:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(10,22,40,.06)}
+.step.step-hero{
+  grid-column:span 1;
+  grid-row:span 2;
+  border:none;
+  color:#fff;
+}
+.step-bignum{
+  position:absolute;right:-16px;bottom:-40px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:200px;font-weight:800;line-height:1;letter-spacing:-8px;
+  color:transparent;
+  pointer-events:none;
+}
+.step.step-hero .step-bignum{right:-10px;bottom:-30px;font-size:280px;-webkit-text-stroke:2px rgba(255,255,255,.35)}
+.step-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;display:inline-block;padding:4px 10px;border-radius:100px;
+}
+.step.step-hero .step-eyebrow{background:rgba(255,255,255,.15);color:rgba(255,255,255,.85)}
+.step-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:700;color:var(--navy);margin:0 0 8px;letter-spacing:-.3px;line-height:1.2;position:relative;z-index:1}
+.step.step-hero .step-title{font-size:26px;color:#fff;letter-spacing:-.6px;max-width:85%}
+.step-desc{font-size:12.5px;color:#5a6a84;line-height:1.6;margin-bottom:14px;position:relative;z-index:1;max-width:95%}
+.step.step-hero .step-desc{font-size:14px;color:rgba(255,255,255,.85);max-width:85%}
+.step-tag{
+  font-size:10.5px;padding:4px 12px;border-radius:100px;
+  font-weight:600;letter-spacing:.3px;display:inline-block;
+  position:relative;z-index:1;align-self:flex-start;
+}
+.step.step-hero .step-tag{background:rgba(255,255,255,.18);color:#fff}
+
+/* process bottom CTA */
+.process-cta-row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:36px;border-top:1px solid var(--border)}
+.process-cta-text{color:#5a6a84;font-size:14px;max-width:380px;line-height:1.6}
+.process-cta-text strong{color:var(--navy);display:block;font-size:18px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px;font-family:'Plus Jakarta Sans',sans-serif}
+.process-cta-btns{display:flex;gap:10px;flex-wrap:wrap}
+
+@media(max-width:960px){
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .step.step-hero{grid-column:span 2;grid-row:auto}
+  .step.step-hero .step-bignum{font-size:220px}
+}
+@media(max-width:600px){
+  .steps-grid{grid-template-columns:1fr}
+  .step.step-hero{grid-column:span 1}
+}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.footer-left{}
+.footer-sub{font-size:12px;color:#3a5278;margin-top:6px}
+.footer-right{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* FADE IN */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card{animation:fadeUp .45s ease both}
+.card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.08s}
+.card:nth-child(3){animation-delay:.12s}.card:nth-child(4){animation-delay:.16s}
+.card:nth-child(5){animation-delay:.20s}.card:nth-child(6){animation-delay:.24s}
+.card:nth-child(7){animation-delay:.28s}.card:nth-child(8){animation-delay:.32s}
+.card:nth-child(9){animation-delay:.36s}.card:nth-child(10){animation-delay:.40s}
+.card:nth-child(11){animation-delay:.44s}.card:nth-child(12){animation-delay:.48s}
+
+@media(max-width:960px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .card.featured{grid-column:span 1}
+  header,.hero,.filter-bar,.process-section,footer{padding-left:28px;padding-right:28px}
+}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .card.featured{grid-column:span 1}
+  h1{font-size:36px}
+  header{padding:0 20px}
+}
+@media(max-width:480px){
+  header{padding:0 14px;height:56px}
+  .logo-text{font-size:15px}
+  .btn-form{padding:8px 12px;font-size:12px}
+  .btn-wa{padding:8px 10px}
+  .btn-wa-label{display:none}
+}
+
+.pricing-section{background:var(--bg);padding:80px 60px;border-top:1px solid var(--border)}
+.pricing-top{text-align:center;margin-bottom:56px}
+.pricing-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:12px}
+.pricing-title{font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-1.5px;color:var(--navy);margin-bottom:10px;line-height:1.1}
+.pricing-sub{font-size:15px;color:var(--grey);max-width:440px;margin:0 auto;line-height:1.6}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.pricing-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 32px;display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
+.pricing-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(10,22,40,.08)}
+.pricing-card.featured-plan{border:2px solid var(--blue);background:#fff}
+.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:4px 16px;border-radius:100px;white-space:nowrap;letter-spacing:.5px}
+.plan-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.plan-name{font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.plan-headline{font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--navy);margin-bottom:4px;line-height:1.2}
+.plan-tagline{font-size:12px;color:var(--grey);margin-bottom:24px;line-height:1.5}
+.plan-price{margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.plan-price .from{font-size:11px;color:var(--grey);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px}
+.plan-price .amount{font-size:36px;font-weight:700;letter-spacing:-1.5px;color:var(--navy);line-height:1}
+.plan-price .currency{font-size:16px;font-weight:500;color:var(--grey);margin-right:2px;vertical-align:top;line-height:2.2}
+.plan-price .note{font-size:11px;color:var(--grey);margin-top:4px;display:block}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1;margin-bottom:28px}
+.plan-features li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:#5a6a84;line-height:1.5}
+.plan-features li::before{content:"✓";color:var(--blue);font-weight:700;font-size:13px;flex-shrink:0;margin-top:1px}
+
+.plan-cta{display:block;text-align:center;padding:12px;border-radius:10px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s}
+.plan-cta.outline{border:1.5px solid var(--border);color:var(--navy);background:transparent}
+.plan-cta.outline:hover{border-color:var(--blue);color:var(--blue)}
+.plan-cta.solid{background:var(--blue);color:#fff;border:1.5px solid var(--blue)}
+.plan-cta.solid:hover{background:#1a6ee8}
+.pricing-note{text-align:center;margin-top:32px;font-size:13px;color:var(--grey);max-width:500px;margin-left:auto;margin-right:auto;line-height:1.6}
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr;max-width:420px}}
+@media(max-width:600px){.pricing-section{padding:60px 20px}}
+
+.card-url-plain{font-size:12px;color:var(--grey);font-family:monospace;letter-spacing:.2px;user-select:all;cursor:text}
+
+/* CLIENTS MARQUEE */
+.clients-section{background:#fff;padding:64px 0 56px;border-top:1px solid var(--border);overflow:hidden}
+.clients-top{text-align:center;margin-bottom:40px;padding:0 20px}
+.clients-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:12px}
+.clients-title{font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:-1.2px;color:var(--navy);line-height:1.15;margin-bottom:10px;font-family:'Plus Jakarta Sans',sans-serif}
+.clients-sub{font-size:14px;color:var(--grey);max-width:480px;margin:0 auto;line-height:1.6}
+.marquee{position:relative;width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
+.marquee-track{display:flex;width:max-content;animation:marquee 40s linear infinite;will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
+@media (hover:hover){.marquee:hover .marquee-track{animation-play-state:paused}}
+.marquee-item{flex:0 0 auto;width:200px;height:90px;margin:0 36px;display:flex;align-items:center;justify-content:center}
+.marquee-item img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(100%);opacity:.65;transition:filter .3s,opacity .3s}
+.marquee-item:hover img{filter:grayscale(0);opacity:1}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee-item{width:130px;height:64px;margin:0 18px}
+  .marquee-item img{opacity:.75;filter:grayscale(100%);transition:none}
+}
+
+.support-banner{background:linear-gradient(135deg,#1a5ce8,#2d7fff);padding:28px 60px;border-radius:20px}
+.support-inner{display:flex;align-items:center;justify-content:center;gap:24px;max-width:900px;margin:0 auto;flex-wrap:wrap}
+.support-inner-left{display:flex;align-items:center;gap:16px}
+.support-icon{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.support-title{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:15px;color:#fff;margin-bottom:3px}
+.support-sub{font-size:13px;color:rgba(255,255,255,0.75)}
+.support-badge{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;background:rgba(255,255,255,0.2);padding:8px 16px;border-radius:8px;flex-shrink:0}
+@media(max-width:600px){.support-banner{padding:20px;border-radius:14px}.support-inner{gap:16px}.support-badge{display:none}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo-mark">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="8" fill="#0a1628"/>
+      <line x1="21" y1="6" x2="11" y2="26" stroke="#2d7fff" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">nearive</span>
+  </a>
+  <div class="header-actions">
+    <a href="https://wa.me/971585582998" target="_blank" class="btn-wa">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span class="btn-wa-label">WhatsApp</span>
+    </a>
+    <a href="Nearive-WebFolio-form.html" target="_blank" class="btn-form">Start a Project</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <h1>Your growth,<br><span class="h-blue">engineered.</span></h1>
+      <p class="hero-desc">Web design, SEO, and paid campaigns for UAE and GCC businesses ready to scale.</p>
+      <div class="hero-ctas">
+        <a href="Nearive-WebFolio-form.html" target="_blank" class="btn-form">Fill in the Brief →</a>
+        <a href="https://wa.me/971585582998" target="_blank" class="btn-wa">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book a Free Strategy Call
+        </a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="n-stage" id="nStage">
+        <div class="n-orbit"></div>
+        <div class="n-particles">
+          <div class="n-particle"></div>
+          <div class="n-particle"></div>
+          <div class="n-particle"></div>
+          <div class="n-particle"></div>
+          <div class="n-particle"></div>
+          <div class="n-particle"></div>
+        </div>
+        <svg class="n-svg" id="nSvg" viewBox="0 0 320 320">
+          <line class="n-slash dim"   x1="160" y1="60" x2="160" y2="260"/>
+          <line class="n-slash ghost" x1="160" y1="60" x2="160" y2="260"/>
+          <line class="n-slash main"  x1="160" y1="60" x2="160" y2="260"/>
+        </svg>
+        <div class="n-speed">
+          <div class="n-speed-row">
+            <span class="n-speed-label">You</span>
+            <span><span class="n-speed-num" id="nSpeed">0</span><span class="n-speed-unit">RPM</span></span>
+          </div>
+          <div class="n-speed-row best">
+            <span class="n-speed-label">Best</span>
+            <span><span class="n-speed-num" id="nBest">0</span><span class="n-speed-unit">RPM</span></span>
+          </div>
+        </div>
+        <div class="n-hint">Drag to spin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER -->
+<section class="works-intro">
+  <div class="works-eyebrow">Our Work</div>
+  <div class="works-title">Sites we've designed & built.</div>
+</section>
+<nav class="filter-bar">
+  <button class="fbtn active" onclick="doFilter(this,'all')">All</button>
+  <button class="fbtn" onclick="doFilter(this,'finance')">Finance</button>
+  <button class="fbtn" onclick="doFilter(this,'health')">Healthcare</button>
+  <button class="fbtn" onclick="doFilter(this,'saas')">SaaS / Tech</button>
+  <button class="fbtn" onclick="doFilter(this,'wellness')">Wellness</button>
+  <button class="fbtn" onclick="doFilter(this,'design')">Art & Design</button>
+  <button class="fbtn" onclick="doFilter(this,'lifestyle')">Lifestyle</button>
+  <button class="fbtn" onclick="doFilter(this,'personal')">Personal Brand</button>
+</nav>
+
+<!-- PORTFOLIO GRID -->
+<div class="grid" id="grid"></div>
+
+
+<!-- CLIENTS MARQUEE -->
+<section class="clients-section">
+  <div class="clients-top">
+    <div class="clients-eyebrow">Trusted by</div>
+    <div class="clients-title">Brands we've worked with.</div>
+    <div class="clients-sub">From global names to growing UAE businesses.</div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="marquee-item"><img src="clients/Bode.png" alt="Bode"></div>
+      <div class="marquee-item"><img src="clients/Ecarpet.png" alt="eCarpet Gallery"></div>
+      <div class="marquee-item"><img src="clients/gmdc.png" alt="Galadari Motor Driving Centre"></div>
+      <div class="marquee-item"><img src="clients/LG.png" alt="LG Display"></div>
+      <div class="marquee-item"><img src="clients/mtn.png" alt="MTN"></div>
+      <div class="marquee-item"><img src="clients/nesquik.png" alt="Nestlé Nesquik"></div>
+      <div class="marquee-item"><img src="clients/samsung.png" alt="Samsung"></div>
+      <div class="marquee-item"><img src="clients/sebamed.png" alt="Sebamed"></div>
+      <div class="marquee-item"><img src="clients/tetra.png" alt="Tetra Pak"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/Bode.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/Ecarpet.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/gmdc.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/LG.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/mtn.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/nesquik.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/samsung.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/sebamed.png" alt=""></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/tetra.png" alt=""></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <div class="pricing-top">
+    <div class="pricing-eyebrow">Pricing</div>
+    <div class="pricing-title">Transparent packages.<br>No surprises.</div>
+    <div class="pricing-sub">Every project is unique — these are starting points. Final price depends on scope, complexity, and add-ons.</div>
+  </div>
+
+  <div class="pricing-grid">
+
+    <!-- PLAN 1 -->
+    <div class="pricing-card">
+      <div class="plan-icon" style="background:#edf3ff">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d7fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+      </div>
+      <div class="plan-name" style="color:var(--blue)">Start Fast</div>
+      <div class="plan-headline">I want to get<br>online quickly.</div>
+      <div class="plan-tagline">For freelancers, startups, and businesses that need a clean, professional presence fast.</div>
+      <div class="plan-price">
+        <span class="from">Starting from</span>
+        <div><span class="currency">AED</span><span class="amount">2,900</span></div>
+        <span class="note">Single-page website</span>
+      </div>
+      <ul class="plan-features">
+        <li>Professionally customized template</li>
+        <li>Single-page, mobile-optimized responsive website</li>
+        <li>Contact form + WhatsApp integration</li>
+        <li>Basic SEO, SSL & Analytics setup</li>
+        <li>Social media integration</li>
+        <li>Speed optimized</li>
+        <li>Delivered in 5–10 business days</li>
+        <li>1 round of revisions</li>
+      </ul>
+      <a href="Nearive-WebFolio-form.html" class="plan-cta outline">Start a Project →</a>
+    </div>
+
+    <!-- PLAN 2 — FEATURED -->
+    <div class="pricing-card featured-plan">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-icon" style="background:#edf3ff">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2d7fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="plan-name" style="color:var(--blue)">My Beautiful Company</div>
+      <div class="plan-headline">A professional website<br>for my business.</div>
+      <div class="plan-tagline">For established businesses that want a polished, multi-page site that builds real trust and drives leads.</div>
+      <div class="plan-price">
+        <span class="from">Starting from</span>
+        <div><span class="currency">AED</span><span class="amount">5,500</span></div>
+        <span class="note">Up to 5 pages</span>
+      </div>
+      <ul class="plan-features">
+        <li>Up to 5 custom-designed pages</li>
+        <li>UI/UX planning in Figma</li>
+        <li>Mobile & tablet responsive</li>
+        <li>CMS integration with blog or news section</li>
+        <li>Contact forms & business integrations</li>
+        <li>On-page SEO + speed & performance optimization</li>
+        <li>SSL, Analytics & security setup</li>
+        <li>Basic content guidance</li>
+        <li>Delivered in 3–5 weeks</li>
+        <li>2 rounds of revisions</li>
+      </ul>
+      <a href="Nearive-WebFolio-form.html" class="plan-cta solid">Start a Project →</a>
+    </div>
+
+    <!-- PLAN 3 -->
+    <div class="pricing-card">
+      <div class="plan-icon" style="background:#f0ecff">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <div class="plan-name" style="color:var(--purple)">We're Unique</div>
+      <div class="plan-headline">We need something<br>no one else has.</div>
+      <div class="plan-tagline">For brands that want a fully custom-coded experience — unique interactions, animations, and architecture.</div>
+      <div class="plan-price">
+        <span class="from">Starting from</span>
+        <div><span class="currency" style="color:var(--purple)">AED</span><span class="amount" style="color:var(--navy)">12,500</span></div>
+        <span class="note">Fully custom build</span>
+      </div>
+      <ul class="plan-features">
+        <li>Fully custom UI/UX design</li>
+        <li>Advanced interactions & animations</li>
+        <li>Scalable website architecture</li>
+        <li>CMS / booking / advanced functionality capable</li>
+        <li>Advanced SEO structure</li>
+        <li>Custom integrations</li>
+        <li>Multi-language ready</li>
+        <li>Performance optimization</li>
+        <li>Strategy-driven development approach</li>
+        <li>Priority support</li>
+        <li>Timeline: 6–12 weeks based on scope</li>
+        <li>3 rounds of revisions</li>
+      </ul>
+      <a href="Nearive-WebFolio-form.html" class="plan-cta outline" style="border-color:var(--purple);color:var(--purple)" onmouseover="this.style.background='#f0ecff'" onmouseout="this.style.background='transparent'">Start a Project →</a>
+    </div>
+
+  </div>
+
+  <div class="pricing-note">
+    All packages include a free 30-min strategy call before signing. Need SEO, Google Ads, or brand guidelines? We'll bundle it. <a href="Nearive-WebFolio-form.html" style="color:var(--blue);text-decoration:none;font-weight:500">Fill in your brief →</a>
+  </div>
+</section>
+
+<!-- PROCESS SECTION -->
+<section class="process-section">
+  <div class="process-inner">
+    <div class="section-eyebrow">How We Work</div>
+    <div class="section-title">From brief to launch —<br>a clear process.</div>
+    <div class="section-sub">We keep things simple and transparent. No surprises, no scope creep — just results.</div>
+
+    <div class="steps-grid">
+
+      <div class="step step-hero" style="background:#2d7fff">
+        <div class="step-bignum" style="-webkit-text-stroke:2px rgba(255,255,255,.35)">01</div>
+        <div>
+          <div class="step-eyebrow">Step 01</div>
+          <div class="step-title">Questionnaire + Free Consultation</div>
+          <div class="step-desc">Client fills a short form online. We follow up with a free 30-min call to fully understand goals, audience, and budget — no commitment.</div>
+        </div>
+        <span class="step-tag">30 min free call</span>
+      </div>
+
+      <div class="step">
+        <div class="step-bignum" style="-webkit-text-stroke:2px rgba(123,94,167,.22)">02</div>
+        <div>
+          <div class="step-eyebrow" style="background:rgba(123,94,167,.12);color:#7b5ea7">Step 02</div>
+          <div class="step-title">Brief & Contract</div>
+          <div class="step-desc">Based on the call, we finalize the project brief, scope, timeline, and budget. Contract signed — project kicks off.</div>
+        </div>
+        <span class="step-tag" style="background:rgba(123,94,167,.12);color:#7b5ea7">Scope locked</span>
+      </div>
+
+      <div class="step">
+        <div class="step-bignum" style="-webkit-text-stroke:2px rgba(45,127,255,.22)">03</div>
+        <div>
+          <div class="step-eyebrow" style="background:rgba(45,127,255,.10);color:#2d7fff">Step 03</div>
+          <div class="step-title">Brand Guidelines</div>
+          <div class="step-desc">No brand book? No problem. We build a custom color palette, typography, and design guidelines tailored to your needs and budget.</div>
+        </div>
+        <span class="step-tag" style="background:rgba(45,127,255,.10);color:#2d7fff">Optional add-on</span>
+      </div>
+
+      <div class="step">
+        <div class="step-bignum" style="-webkit-text-stroke:2px rgba(123,94,167,.22)">04</div>
+        <div>
+          <div class="step-eyebrow" style="background:rgba(123,94,167,.12);color:#7b5ea7">Step 04</div>
+          <div class="step-title">UI/UX Design in Figma</div>
+          <div class="step-desc">Full wireframes and visual design in Figma. You review, give feedback, and approve before any development starts.</div>
+        </div>
+        <span class="step-tag" style="background:rgba(123,94,167,.12);color:#7b5ea7">Client approval</span>
+      </div>
+
+      <div class="step">
+        <div class="step-bignum" style="-webkit-text-stroke:2px rgba(45,127,255,.22)">05</div>
+        <div>
+          <div class="step-eyebrow" style="background:rgba(45,127,255,.10);color:#2d7fff">Step 05</div>
+          <div class="step-title">Development</div>
+          <div class="step-desc">Design gets built into a fast, responsive website. We handle all technical setup — hosting, domain, CMS, and integrations.</div>
+        </div>
+        <span class="step-tag" style="background:rgba(45,127,255,.10);color:#2d7fff">Pixel-perfect build</span>
+      </div>
+
+      <div class="step">
+        <div class="step-bignum" style="-webkit-text-stroke:2px rgba(29,210,120,.28)">06</div>
+        <div>
+          <div class="step-eyebrow" style="background:rgba(29,210,120,.12);color:#1aa15e">Step 06</div>
+          <div class="step-title">Launch, SEO & Security</div>
+          <div class="step-desc">Final QA, contact forms connected, SSL secured, Google Analytics set up, and on-page SEO configured. Ready to go live.</div>
+        </div>
+        <span class="step-tag" style="background:rgba(29,210,120,.12);color:#1aa15e">Live & optimized</span>
+      </div>
+
+    </div>
+
+<!-- SUPPORT BANNER -->
+<div class="support-banner">
+  <div class="support-inner">
+    <div class="support-inner-left">
+      <div class="support-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div class="support-title">3 months free support — on every project.</div>
+        <div class="support-sub">Bug fixes, minor updates, and peace of mind after launch.</div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="process-cta-row">
+      <div class="process-cta-text">
+        <strong>Ready to start?</strong>
+        Fill in a quick brief and we'll get back to you within 24 hours — or chat with us directly on WhatsApp.
+      </div>
+      <div class="process-cta-btns">
+        <a href="Nearive-WebFolio-form.html" target="_blank" class="btn-form">Fill in the Brief →</a>
+        <a href="https://wa.me/971585582998" target="_blank" class="btn-wa">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="#" class="logo-mark">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#1a2d4a"/>
+        <line x1="21" y1="6" x2="11" y2="26" stroke="#2d7fff" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text" style="color:#fff;font-size:18px">nearive</span>
+    </a>
+    <div class="footer-sub">Dubai, UAE &nbsp;·&nbsp; nearive.com &nbsp;·&nbsp; <a href="https://wa.me/971585582998" style="color:inherit;text-decoration:none;">+971 58 558 2998</a> &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#8de5e8e1e1e2cde3e8ecffe4fbe8a3eee2e0" style="color:inherit;text-decoration:none;"><span class="__cf_email__" data-cfemail="573f323b3b3817393236253e21327934383a">[email&#160;protected]</span></a></div>
+  </div>
+  <div class="footer-right" style="font-size:12px;color:#3a5278">
+    © 2026 Nearive. All rights reserved.
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const IMGS = {
+  'arrowrootfamily':   'sites/arrowrootfamily.jpg',
+  'arrowrootcap':      'sites/arrowrootcap.jpg',
+  'arrowrootadvisors': 'sites/arrowrootadvisors.jpg',
+  'cellscan':          'sites/cellscan.jpg',
+  'tekwat':            'sites/tekwat.jpg',
+  'reorigin':          'sites/reorigin.jpg',
+  'rosebud':           'sites/rosebud.jpg',
+  'dotdesigns':        'sites/dotdesigns.jpg',
+  'talknthrive':       'sites/talknthrive.jpg',
+  'happytails':        'sites/happytails.jpg',
+  'contilio':          'sites/contilio.jpg',
+  'sethfineberg':      'sites/sethfineberg.jpg',
+  'mawtrading':        'sites/mawtrading.jpg',
+  'falconlynks':       'sites/falconlynks.jpg',
+  'nearivestudio':     'sites/nearive-studio.jpg',
+};
+
+const PROJECTS = [
+  {num:"01",featured:true, imgKey:"contilio",         title:"Contilio",                url:"contilio.com",              href:"https://contilio.com",              cat:"saas",      catLabel:"SaaS / Enterprise", catBg:"#edf3ff",catColor:"#1a4fa0",desc:"Enterprise 3D AI analytics platform turning construction site data into real-time insights on progress, quality, and risk.",tags:["SaaS","AI / ML","Enterprise"]},
+  {num:"02",featured:true, imgKey:"arrowrootfamily",  title:"Arrowroot Family Office", url:"arrowrootfamilyoffice.com", href:"https://arrowrootfamilyoffice.com", cat:"finance",   catLabel:"Finance",           catBg:"#edf3ff",catColor:"#1a4fa0",desc:"Full-service wealth management portal — investment, retirement, tax, and estate planning. Trust-building design for high-net-worth individuals.",tags:["Web Design","Elementor","WordPress"]},
+  {num:"03",featured:false,imgKey:"falconlynks",      title:"Falcon Lynks",            url:"falconlynks.com",           href:"https://falconlynks.com",           cat:"saas",      catLabel:"Logistics / UAE",   catBg:"#fdf6e0",catColor:"#7a6010",desc:"Advanced aerial logistics & drone delivery for UAE healthcare and government sectors. Bold, premium dark aesthetic.",tags:["UAE","Drone Logistics","Aviation"]},
+  {num:"04",featured:false,imgKey:"nearivestudio",    title:"Nearive — Studio",        url:"nearive.com",               href:"https://nearive.com",               cat:"design",    catLabel:"Creative Agency",   catBg:"#fff8d6",catColor:"#7a6010",desc:"In-house brand identity & site for Nearive — bold editorial typography, motion-driven layouts, and a confident creative-agency voice.",tags:["Branding","Web Design","In-house"]},
+  {num:"05",featured:false,imgKey:"rosebud",          title:"Rosebud",                 url:"rosebud.app",               href:"https://rosebud.app",               cat:"saas",      catLabel:"SaaS / AI",         catBg:"#fff0f5",catColor:"#8a2050",desc:"AI-powered journaling SaaS for personal growth. Soft branding with voice-to-text feature UI built on Webflow.",tags:["Webflow","SaaS","AI"]},
+  {num:"06",featured:false,imgKey:"mawtrading",       title:"MAW Trading",             url:"mawtrading.com",            href:"https://mawtrading.com",            cat:"saas",      catLabel:"Industrial / UAE",  catBg:"#edf3ff",catColor:"#1a4fa0",desc:"Dubai-based industrial supplier serving oilfield, marine, and engineering operations across the Middle East, Central Asia, and East Africa.",tags:["UAE","B2B","Industrial"]},
+  {num:"07",featured:false,imgKey:"reorigin",         title:"re-origin",               url:"re-origin.com",             href:"https://re-origin.com",             cat:"wellness",  catLabel:"Wellness",          catBg:"#f0ecff",catColor:"#5a3fa0",desc:"Science-based neuroplasticity program for chronic conditions. Empathetic, conversion-focused landing pages.",tags:["Elementor","CRO","Wellness"]},
+  {num:"08",featured:false,imgKey:"arrowrootcap",     title:"Arrowroot Capital",       url:"arrowrootcapital.com",      href:"https://arrowrootcapital.com",      cat:"finance",   catLabel:"Finance",           catBg:"#edf3ff",catColor:"#1a4fa0",desc:"Private equity & software investment firm. Sophisticated minimal aesthetic communicating institutional credibility.",tags:["Squarespace","Branding"]},
+  {num:"09",featured:false,imgKey:"cellscan",         title:"CellScan Innovation",     url:"cellscan.ca",               href:"https://cellscan.ca",               cat:"health",    catLabel:"Healthcare",        catBg:"#e6f8f2",catColor:"#0a6a4a",desc:"Canadian healthcare tech company focused on medical diagnostics, nutrition, and pharmaceuticals.",tags:["WordPress","Healthcare","Canada"]},
+  {num:"10",featured:false,imgKey:"tekwat",           title:"Tekwat",                  url:"tekwat.com",                href:"https://tekwat.com",                cat:"saas",      catLabel:"Manufacturing",     catBg:"#fdf6e0",catColor:"#7a6010",desc:"Turkish architectural lighting manufacturer. E-commerce-ready with multilingual (TR/EN) support and technical product specs.",tags:["WooCommerce","Multilingual","B2B"]},
+  {num:"11",featured:false,imgKey:"talknthrive",      title:"Talk & Thrive",           url:"talknthrive.com",           href:"https://talknthrive.com",           cat:"health",    catLabel:"Healthcare",        catBg:"#e6f8f2",catColor:"#0a6a4a",desc:"Evidence-based clinical practice for neurodivergent adults. Accessible design for autism & ADHD assessment booking.",tags:["WordPress","Neurodiversity"]},
+  {num:"12",featured:false,imgKey:"dotdesigns",       title:"Dot Designs",             url:"dotdesigns.ca",             href:"https://dotdesigns.ca",             cat:"design",    catLabel:"Art & Design",      catBg:"#fdf4ea",catColor:"#7a4a18",desc:"Portfolio for a Canadian sculptor specializing in exaggerated relief structures inspired by natural textures.",tags:["WordPress","Portfolio","Art"]},
+  {num:"13",featured:false,imgKey:"happytails",       title:"Happy Tails Inn",         url:"happytails.la",             href:"https://happytails.la",             cat:"lifestyle", catLabel:"Lifestyle",         catBg:"#fff4ec",catColor:"#8a3810",desc:"LA pet care — daycare, boarding, grooming, training & photography. Playful site with booking and local SEO.",tags:["WordPress","Local SEO","Booking"]},
+  {num:"14",featured:false,imgKey:"sethfineberg",     title:"Seth Fineberg",           url:"sethfineberg.com",          href:"https://sethfineberg.com",          cat:"personal",  catLabel:"Personal Brand",    catBg:"#eef0ff",catColor:"#2a3a8a",desc:"US accounting industry consultant, editor & content strategist. Authority-building design with editorial tone.",tags:["WordPress","Personal Brand"]},
+  {num:"15",featured:false,imgKey:"arrowrootadvisors",title:"Arrowroot Advisors",      url:"arrowrootadvisors.com",     href:"https://arrowrootadvisors.com",     cat:"finance",   catLabel:"Finance",           catBg:"#edf3ff",catColor:"#1a4fa0",desc:"Strategic advisory arm of the Arrowroot group. Professional design targeting institutional and corporate clients.",tags:["Web Design","Advisory"]},
+];
+
+function ssUrl(href){return `https://api.microlink.io/?url=${encodeURIComponent(href)}&screenshot=true&meta=false&embed=screenshot.url&screenshot.fullPage=true`}
+
+function buildCard(p){
+  const el=document.createElement('div');
+  el.className='card'+(p.featured?' featured':'');
+  el.dataset.cat=p.cat;
+  const lapMax='280px';
+  const src=IMGS[p.imgKey]||ssUrl(p.href);
+  const L='l'+p.num,LD='ld'+p.num,ER='er'+p.num;
+  el.innerHTML=`
+    <div class="device-wrap">
+      <div class="scroll-hint">Hover to scroll ↓</div>
+      <div class="laptop" style="max-width:${lapMax}">
+        <div class="laptop-lid">
+          <div class="laptop-screen">
+            <div class="screen-loader" id="${LD}">
+              <div class="loader-dots"><div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div></div>
+              <div class="screen-url">${p.url}</div>
+            </div>
+            <div class="screen-error" id="${ER}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              <span>${p.url}</span>
+            </div>
+            <img id="${L}" class="site-img" src="${src}" alt="${p.title}"
+              onload="onL('${LD}')" onerror="onE('${LD}','${ER}')"/>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+        <div class="laptop-foot"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-title">${p.title}</div>
+        <span class="cat-badge" style="background:${p.catBg};color:${p.catColor}">${p.catLabel}</span>
+      </div>
+      <div class="card-url">${p.url}</div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </div>`;
+  return el;
+}
+
+function onL(LD){const l=document.getElementById(LD);if(l){l.classList.add('done');setTimeout(()=>l.style.display='none',420)}}
+function onE(LD,ER){const l=document.getElementById(LD),e=document.getElementById(ER);if(l)l.style.display='none';if(e)e.style.display='flex'}
+
+/* Rotating slash hero — interactive spinner with momentum + RPM readout.
+   Mobile-safe: doesn't hijack vertical scroll. Only engages drag once the
+   gesture is clearly tangential (rotating), not radial / vertical. */
+document.addEventListener('DOMContentLoaded', () => {
+  const stage  = document.getElementById('nStage');
+  const svg    = document.getElementById('nSvg');
+  const numEl  = document.getElementById('nSpeed');
+  const bestEl = document.getElementById('nBest');
+  if(!stage || !svg) return;
+
+  const REST = 27;                 // logo's slash angle in degrees
+  let angle = REST;                // current rotation
+  let velocity = 0;                // deg per frame at 60fps
+  let dragging = false;            // actively rotating
+  let candidate = false;           // pointer down but not yet committed
+  let lastPointerAngle = 0;
+  let startPointerAngle = 0;
+  let startXY = null;
+  let lastTime = 0;
+  let userInteracted = false;
+  let maxRpm = 0;
+
+  function getXY(e){
+    const pt = (e.touches && e.touches[0]) || e;
+    return {x: pt.clientX, y: pt.clientY};
+  }
+  function getPointerAngle(e){
+    const pt = getXY(e);
+    const r  = svg.getBoundingClientRect();
+    return Math.atan2(pt.y - (r.top+r.height/2), pt.x - (r.left+r.width/2)) * 180 / Math.PI;
+  }
+
+  function engageInteraction(){
+    if(userInteracted) return;
+    userInteracted = true;
+    stage.classList.add('touched');
+    // read current CSS angle so hand-off is seamless
+    const t = getComputedStyle(svg).transform;
+    const m = t.match(/matrix\(([^)]+)\)/);
+    if(m){
+      const [a,b] = m[1].split(',').map(Number);
+      angle = Math.atan2(b, a) * 180 / Math.PI;
+    }
+    svg.style.animation = 'none';
+    svg.style.transform = `rotate(${angle}deg)`;
+  }
+
+  function down(e){
+    candidate = true;
+    dragging = false;
+    startXY = getXY(e);
+    startPointerAngle = lastPointerAngle = getPointerAngle(e);
+    lastTime = performance.now();
+    velocity = 0;
+    // do NOT preventDefault yet — let the browser keep handling scroll
+    // until we know the user is rotating, not scrolling.
+  }
+
+  function move(e){
+    if(!candidate && !dragging) return;
+    const xy = getXY(e);
+    const pa = getPointerAngle(e);
+
+    if(candidate){
+      const dx = xy.x - startXY.x;
+      const dy = xy.y - startXY.y;
+      const dist = Math.hypot(dx, dy);
+      // wait until the finger has moved a bit
+      if(dist < 8) return;
+
+      // tangential test: how much angular change vs radial distance
+      let dAng = pa - startPointerAngle;
+      if(dAng >  180) dAng -= 360;
+      if(dAng < -180) dAng += 360;
+
+      // if the gesture is clearly rotational, engage; otherwise abandon (let scroll win)
+      if(Math.abs(dAng) > 8){
+        candidate = false;
+        dragging  = true;
+        engageInteraction();
+      } else {
+        // mostly straight/radial — user is probably scrolling
+        candidate = false;
+        return;
+      }
+    }
+
+    if(dragging){
+      let d = pa - lastPointerAngle;
+      if(d >  180) d -= 360;
+      if(d < -180) d += 360;
+      angle += d;
+      const now = performance.now();
+      const dt  = Math.max(8, now - lastTime);
+      const sample = (d * 16.67) / dt;
+      velocity = velocity * 0.35 + sample * 0.65;
+      lastPointerAngle = pa;
+      lastTime = now;
+      // only block scroll while we're actively spinning
+      if(e.cancelable) e.preventDefault();
+    }
+  }
+
+  function up(){
+    dragging = false;
+    candidate = false;
+  }
+
+  // Mouse
+  stage.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup',   up);
+  // Touch — passive on start (so the browser can scroll), non-passive on move (so we can preventDefault selectively)
+  stage.addEventListener('touchstart', down, {passive:true});
+  window.addEventListener('touchmove', move, {passive:false});
+  window.addEventListener('touchend',  up);
+  window.addEventListener('touchcancel', up);
+  // also: a quick tap (no rotation) should give a tiny visual nudge so the user sees the readout appear
+  stage.addEventListener('click', () => {
+    if(!userInteracted){
+      engageInteraction();
+      velocity = 6;
+    }
+  });
+
+  function tick(){
+    if(userInteracted){
+      if(!dragging){
+        angle += velocity;
+        velocity *= 0.97;
+        if(Math.abs(velocity) < 0.05){
+          const target = Math.round((angle - REST) / 360) * 360 + REST;
+          angle += (target - angle) * 0.08;
+          if(Math.abs(target - angle) < 0.05){ angle = target; velocity = 0; }
+        }
+      }
+      svg.style.transform = `rotate(${angle}deg)`;
+      const rpm = Math.min(999, Math.round(Math.abs(velocity) * 10));
+      if(numEl) numEl.textContent = rpm;
+      if(rpm > maxRpm){ maxRpm = rpm; if(bestEl) bestEl.textContent = maxRpm; }
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+});
+
+function doFilter(btn,cat){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.card').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'flex':'none'});
+}
+
+const grid=document.getElementById('grid');
+PROJECTS.forEach(p=>grid.appendChild(buildCard(p)));
+</script>
+</body>
+</html>
