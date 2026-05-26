@@ -130,6 +130,7 @@ header{
 .n-slash.ghost{stroke:var(--purple);opacity:.35;transform:translate(6px,0)}
 .n-slash.dim{stroke:rgba(255,255,255,.08)}
 
+@keyframes hintSpin{to{transform:rotate(360deg)}}
 @keyframes spinSettle{
   0%   {transform:rotate(27deg);  animation-timing-function:linear}
   18%  {transform:rotate(27deg);  animation-timing-function:cubic-bezier(.18,.72,.25,1)}
@@ -488,7 +489,10 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
             <span><span class="n-speed-num" id="nBest">0</span><span class="n-speed-unit">RPM</span></span>
           </div>
         </div>
-        <div class="n-hint">Drag to spin</div>
+        <div class="n-hint">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:hintSpin 2.5s linear infinite"><path d="M12 2a10 10 0 1 0 10 10"/><polyline points="22 2 22 8 16 8"/></svg>
+  Spin me
+</div>
       </div>
     </div>
   </div>
@@ -946,6 +950,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let d = pa - lastPointerAngle;
       if(d >  180) d -= 360;
       if(d < -180) d += 360;
+      if(d < 0) d = 0;
       angle += d;
       const now = performance.now();
       const dt  = Math.max(8, now - lastTime);
@@ -994,7 +999,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       svg.style.transform = `rotate(${angle}deg)`;
-      const rpm = Math.min(999, Math.round(Math.abs(velocity) * 10));
+      const rpm = Math.round(Math.abs(velocity) * 10);
       if(numEl) numEl.textContent = rpm;
       if(rpm > maxRpm){ maxRpm = rpm; if(bestEl) bestEl.textContent = maxRpm; }
     }
