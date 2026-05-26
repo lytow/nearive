@@ -982,7 +982,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function tick(){
     if(userInteracted){
-      if(!dragging){
+      if(dragging){
+        angle += velocity;
+      } else {
         angle += velocity;
         velocity *= 0.97;
         if(Math.abs(velocity) < 0.05){
