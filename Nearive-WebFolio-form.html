@@ -143,7 +143,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div class="hero-inner">
     <div class="eyebrow">Website Discovery</div>
     <h1>Tell us about<br>your project.</h1>
-    <p>Takes about 4 minutes. Your answers help us prepare for your free strategy call and craft the right proposal.</p>
+    <p>This helps us understand your business, goals, and website needs before your strategy call.</p>
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
       <div class="progress-label">
@@ -181,7 +181,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <p>We'll review your answers and get back to you within 24 hours to schedule your free strategy call.</p>
     <a href="#" id="wa-link" class="btn-wa" target="_blank">
       <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Also message us on WhatsApp
+      Message us on WhatsApp if your request is urgent
     </a>
   </div>
 
@@ -211,10 +211,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <input type="email" placeholder="jane@company.com" />
           <div class="field-err">Please enter a valid email</div>
         </div>
-        <div class="field" data-required data-key="phone">
+        <div class="field" data-required data-key="phone" data-type="phone">
           <label class="field-label">Phone / WhatsApp <span class="req">*</span></label>
           <div class="phone-input-wrap">
-            <select class="phone-flag-select" id="phone-country" onchange="updateBudgetFromPhone()">
+            <select class="phone-flag-select" id="phone-country">
               <option value="+971">🇦🇪 +971</option>
               <option value="+966">🇸🇦 +966</option>
               <option value="+965">🇰🇼 +965</option>
@@ -254,12 +254,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="sec-sub">Help us understand what you do.</div>
 
       <div class="field" data-key="intro">
-        <label class="field-label">Q5. Please briefly introduce your business and what you do.</label>
+        <label class="field-label">Please briefly introduce your business and what you do.</label>
         <textarea placeholder="Tell us about your company, what you offer, and who your customers are..."></textarea>
       </div>
 
       <div class="field" data-required data-key="goal">
-        <label class="field-label">Q6. What is the main goal of the website? <span class="req">*</span> <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">What is the main goal of the website? <span class="req">*</span> <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid2">
           <div class="choice"><input type="checkbox" name="goal" value="Company presentation / credibility"><label class="choice-label"><span class="choice-box"></span>Company presentation / credibility</label></div>
           <div class="choice"><input type="checkbox" name="goal" value="Lead generation"><label class="choice-label"><span class="choice-box"></span>Lead generation</label></div>
@@ -272,7 +272,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-key="audience">
-        <label class="field-label">Q7. Who is your target audience? <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">Who is your target audience? <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid3">
           <div class="choice"><input type="checkbox" name="audience" value="B2B"><label class="choice-label"><span class="choice-box"></span>B2B</label></div>
           <div class="choice"><input type="checkbox" name="audience" value="B2C"><label class="choice-label"><span class="choice-box"></span>B2C</label></div>
@@ -289,7 +289,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="sec-sub">Let's understand what you need technically.</div>
 
       <div class="field" data-required data-key="type">
-        <label class="field-label">Q8. What type of website are you looking for? <span class="req">*</span></label>
+        <label class="field-label">What type of website are you looking for? <span class="req">*</span></label>
         <div class="choices grid2">
           <div class="choice"><input type="radio" name="type" value="One-page website"><label class="choice-label"><span class="choice-dot"></span>One-page website</label></div>
           <div class="choice"><input type="radio" name="type" value="Multi-page website"><label class="choice-label"><span class="choice-dot"></span>Multi-page website</label></div>
@@ -300,7 +300,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-key="sections">
-        <label class="field-label">Q9. Which sections would you like on the website? <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">Which sections would you like on the website? <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid3">
           <div class="choice"><input type="checkbox" name="sections" value="Home"><label class="choice-label"><span class="choice-box"></span>Home</label></div>
           <div class="choice"><input type="checkbox" name="sections" value="About Us"><label class="choice-label"><span class="choice-box"></span>About Us</label></div>
@@ -315,7 +315,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-key="features">
-        <label class="field-label">Q15. What features do you need? <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">What features do you need? <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid2">
           <div class="choice"><input type="checkbox" name="features" value="Contact form"><label class="choice-label"><span class="choice-box"></span>Contact form</label></div>
           <div class="choice"><input type="checkbox" name="features" value="WhatsApp integration"><label class="choice-label"><span class="choice-box"></span>WhatsApp integration</label></div>
@@ -330,7 +330,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-required data-key="domain">
-        <label class="field-label">Q16. Do you already have a domain and hosting? <span class="req">*</span></label>
+        <label class="field-label">Do you already have a domain and hosting? <span class="req">*</span></label>
         <div class="choices grid2">
           <div class="choice"><input type="radio" name="domain" value="Both available"><label class="choice-label"><span class="choice-dot"></span>Both available</label></div>
           <div class="choice"><input type="radio" name="domain" value="Only domain"><label class="choice-label"><span class="choice-dot"></span>Only domain</label></div>
@@ -348,7 +348,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="sec-sub">What you already have helps us plan what we need to create.</div>
 
       <div class="field" data-key="branding">
-        <label class="field-label">Q10. Do you currently have branding materials? <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">Do you currently have branding materials? <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid2">
           <div class="choice"><input type="checkbox" name="branding" value="Logo"><label class="choice-label"><span class="choice-box"></span>Logo</label></div>
           <div class="choice"><input type="checkbox" name="branding" value="Brand colors"><label class="choice-label"><span class="choice-box"></span>Brand colors</label></div>
@@ -359,7 +359,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-required data-key="content">
-        <label class="field-label">Q11. Do you have content ready for the website? <span class="req">*</span></label>
+        <label class="field-label">Do you have content ready for the website? <span class="req">*</span></label>
         <div class="choices">
           <div class="choice"><input type="radio" name="content" value="Yes, mostly ready"><label class="choice-label"><span class="choice-dot"></span>Yes, mostly ready</label></div>
           <div class="choice"><input type="radio" name="content" value="Partially ready"><label class="choice-label"><span class="choice-dot"></span>Partially ready</label></div>
@@ -369,7 +369,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-key="style">
-        <label class="field-label">Q14. What style or feeling do you prefer? <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">What style or feeling do you prefer? <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid3">
           <div class="choice"><input type="checkbox" name="style" value="Corporate"><label class="choice-label"><span class="choice-box"></span>Corporate</label></div>
           <div class="choice"><input type="checkbox" name="style" value="Minimal"><label class="choice-label"><span class="choice-box"></span>Minimal</label></div>
@@ -389,12 +389,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="sec-sub">This helps us understand your competitive landscape and design preferences.</div>
 
       <div class="field" data-key="inspiration">
-        <label class="field-label">Q12. Are there any websites you like or feel inspired by?</label>
+        <label class="field-label">Are there any websites you like or feel inspired by?</label>
         <textarea placeholder="e.g. linear.app, stripe.com — I like the clean minimal feel and smooth animations..."></textarea>
       </div>
 
       <div class="field" data-key="competitors">
-        <label class="field-label">Q13. Who are your main competitors?</label>
+        <label class="field-label">Who are your main competitors?</label>
         <textarea placeholder="List 2–3 competitor names or their websites..."></textarea>
       </div>
     </div>
@@ -405,7 +405,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="sec-sub">No judgment — this helps us recommend the right package and plan accordingly.</div>
 
       <div class="field" data-key="marketing">
-        <label class="field-label">Q17. Will SEO or digital marketing be important later? <span class="multi-hint">Select all that apply</span></label>
+        <label class="field-label">Will SEO or digital marketing be important later? <span class="multi-hint">Select all that apply</span></label>
         <div class="choices grid2">
           <div class="choice"><input type="checkbox" name="marketing" value="SEO"><label class="choice-label"><span class="choice-box"></span>SEO</label></div>
           <div class="choice"><input type="checkbox" name="marketing" value="Google Ads"><label class="choice-label"><span class="choice-box"></span>Google Ads</label></div>
@@ -416,27 +416,47 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
 
       <div class="field" data-key="timeline">
-        <label class="field-label">Q18. Do you have a preferred launch date or timeline?</label>
+        <label class="field-label">Do you have a preferred launch date or timeline?</label>
         <input type="text" placeholder="e.g. End of July 2025, or within 6 weeks..." />
       </div>
 
       <div class="field" data-required data-key="budget">
-        <label class="field-label">Q19. What is your estimated budget range? <span class="req">*</span></label>
-        <span class="budget-currency-note" id="budget-note">Prices in AED — auto-detected based on your location</span>
+        <label class="field-label">What is your estimated budget range? <span class="req">*</span></label>
+        <span class="budget-currency-note" id="budget-note">Prices are shown based on your detected region.</span>
         <div class="choices grid2" id="budget-choices">
           <div class="choice"><input type="radio" name="budget" id="b1" value="b1"><label class="choice-label" for="b1"><span class="choice-dot"></span><span id="bl1">Under AED 5,000</span></label></div>
           <div class="choice"><input type="radio" name="budget" id="b2" value="b2"><label class="choice-label" for="b2"><span class="choice-dot"></span><span id="bl2">AED 5,000 – 10,000</span></label></div>
           <div class="choice"><input type="radio" name="budget" id="b3" value="b3"><label class="choice-label" for="b3"><span class="choice-dot"></span><span id="bl3">AED 10,000 – 20,000</span></label></div>
           <div class="choice"><input type="radio" name="budget" id="b4" value="b4"><label class="choice-label" for="b4"><span class="choice-dot"></span><span id="bl4">AED 20,000 – 30,000</span></label></div>
           <div class="choice"><input type="radio" name="budget" id="b5" value="b5"><label class="choice-label" for="b5"><span class="choice-dot"></span><span id="bl5">More than AED 30,000</span></label></div>
-          <div class="choice"><input type="radio" name="budget" id="b6" value="Not decided yet"><label class="choice-label" for="b5"><span class="choice-dot"></span>Not decided yet</label></div>
+          <div class="choice"><input type="radio" name="budget" id="b6" value="Not decided yet"><label class="choice-label" for="b6"><span class="choice-dot"></span>Not decided yet</label></div>
         </div>
         <div class="field-err">Please select one</div>
       </div>
 
       <div class="field" data-key="notes">
-        <label class="field-label">Q20. Is there anything else you'd like us to know?</label>
+        <label class="field-label">Is there anything else you'd like us to know?</label>
         <textarea placeholder="Any specific requirements, concerns, or context that would help us prepare for the call..."></textarea>
+      </div>
+    </div>
+
+
+    <!-- SECTION: How did you hear about us -->
+    <div class="form-section">
+      <div class="sec-title">One last thing</div>
+      <div class="sec-sub">How did you hear about us?</div>
+      <div class="field" data-key="source">
+        <div class="choices grid2">
+          <div class="choice"><input type="radio" name="source" id="src1" value="Referral" onchange="toggleReferral(this)"><label class="choice-label" for="src1"><span class="choice-dot"></span>A friend or colleague referred me</label></div>
+          <div class="choice"><input type="radio" name="source" id="src2" value="Google Search" onchange="toggleReferral(this)"><label class="choice-label" for="src2"><span class="choice-dot"></span>Google Search</label></div>
+          <div class="choice"><input type="radio" name="source" id="src3" value="Instagram" onchange="toggleReferral(this)"><label class="choice-label" for="src3"><span class="choice-dot"></span>Instagram</label></div>
+          <div class="choice"><input type="radio" name="source" id="src4" value="LinkedIn" onchange="toggleReferral(this)"><label class="choice-label" for="src4"><span class="choice-dot"></span>LinkedIn</label></div>
+          <div class="choice"><input type="radio" name="source" id="src5" value="WhatsApp" onchange="toggleReferral(this)"><label class="choice-label" for="src5"><span class="choice-dot"></span>WhatsApp</label></div>
+          <div class="choice"><input type="radio" name="source" id="src6" value="Other" onchange="toggleReferral(this)"><label class="choice-label" for="src6"><span class="choice-dot"></span>Other</label></div>
+        </div>
+        <div id="referralField" style="display:none;margin-top:12px">
+          <input type="text" id="referralName" placeholder="Name of the person who referred you" style="color:#b8c4d8">
+        </div>
       </div>
     </div>
 
@@ -477,7 +497,7 @@ function updateProgress(){
   const n = countAnswered();
   const pct = Math.round(n/total*100);
   document.getElementById('pfill').style.width = pct+'%';
-  document.getElementById('plabel').textContent = `${n} of ${total} answered`;
+  document.getElementById('plabel').textContent = `Progress`;
   document.getElementById('ppct').textContent = pct+'%';
 }
 
@@ -487,18 +507,27 @@ form.addEventListener('change', updateProgress);
 function getVal(key){
   const f = form.querySelector(`[data-key="${key}"]`);
   if(!f) return '';
+
+  // Phone field has a country code select + phone number input
+  if(key === 'phone') {
+    const code = f.querySelector('select')?.value || '';
+    const number = f.querySelector('input[type=tel]')?.value.trim() || '';
+    return number ? `${code} ${number}`.trim() : '';
+  }
+
+  // Budget radio values are technical IDs, so return the visible label instead
+  if(key === 'budget') {
+    const checked = f.querySelector('input[type=radio]:checked');
+    if(!checked) return '';
+    const label = checked.closest('.choice')?.querySelector('.choice-label')?.innerText.trim();
+    return label || checked.value;
+  }
+
   const radio = f.querySelector('input[type=radio]:checked');
   if(radio) return radio.value;
   const checks = [...f.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.value);
   if(checks.length) return checks.join(', ');
-  const text = f.querySelector('
-.phone-input-wrap{display:flex;gap:0;}
-.phone-flag-select{padding:11px 10px;border:1px solid var(--border);border-right:none;border-radius:8px 0 0 8px;font-family:'Inter',sans-serif;font-size:13px;color:var(--navy);background:#fff;outline:none;cursor:pointer;min-width:110px;}
-.phone-flag-select:focus{border-color:var(--blue);}
-.phone-number-input{border-radius:0 8px 8px 0 !important;}
-.budget-currency-note{font-size:11px;color:var(--grey);font-style:italic;margin-bottom:8px;display:block;}
-
-input[type=text],input[type=email],input[type=tel],textarea');
+  const text = f.querySelector('input[type=text], input[type=email], input[type=tel], textarea');
   return text ? text.value.trim() : '';
 }
 
@@ -510,7 +539,7 @@ function validate(){
     const val = getVal(key);
     let valid = val.length > 0;
     if(type==='email') valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-    if(type==='phone') valid = /^\+971[\d\s]{8,12}$/.test(val.replace(/\s+/g,' ').trim());
+    if(type==='phone') valid = /^\+?[0-9\s\-()]{7,24}$/.test(val.replace(/\s+/g,' ').trim());
     if(!valid){ f.classList.add('err'); ok=false; }
     else f.classList.remove('err');
   });
@@ -594,59 +623,14 @@ form.addEventListener('submit', async function(e){
   }, 700);
 });
 
-// ---- CURRENCY & PHONE DETECTION ----
-const budgetLabels = {
-  AED: ['Under AED 5,000','AED 5,000 – 10,000','AED 10,000 – 20,000','AED 20,000 – 30,000','More than AED 30,000'],
-  USD: ['Up to $1,000','Up to $2,000','Up to $4,000','More than $4,000'],
-  EUR: ['Up to €1,000','Up to €2,000','Up to €4,000','More than €4,000'],
-  CAD: ['Up to CAD 1,500','Up to CAD 3,000','Up to CAD 6,000','CAD 6,000 and more'],
-  AUD: ['Up to AUD 1,500','Up to AUD 3,000','Up to AUD 6,000','AUD 6,000 and more'],
-};
-
-const gccCodes = ['+971','+966','+965','+974','+973','+968'];
-const eurCodes = ['+44','+49','+33','+39','+34','+31'];
-const audCodes = ['+61'];
-const cadCodes = ['+1-CA'];
-
-function getCurrencyFromCode(code) {
-  if (gccCodes.includes(code)) return 'AED';
-  if (code === '+1') return 'USD';
-  if (cadCodes.includes(code)) return 'CAD';
-  if (audCodes.includes(code)) return 'AUD';
-  if (eurCodes.includes(code)) return 'EUR';
-  return 'USD';
+// ---- REFERRAL TOGGLE ----
+function toggleReferral(el){
+  const f = document.getElementById('referralField');
+  f.style.display = el.value === 'Referral' ? 'block' : 'none';
+  const input = document.getElementById('referralName');
+  if(f.style.display === 'none') input.value = '';
 }
 
-function applyBudget(currency) {
-  const labels = budgetLabels[currency] || budgetLabels.AED;
-  for (let i = 1; i <= 4; i++) {
-    const el = document.getElementById('bl' + i);
-    if (el) el.textContent = labels[i-1];
-  }
-  const note = document.getElementById('budget-note');
-  if (note) note.textContent = 'Prices in ' + currency + ' — based on your location';
-}
-
-function updateBudgetFromPhone() {
-  const code = document.getElementById('phone-country').value;
-  applyBudget(getCurrencyFromCode(code));
-}
-
-// Auto-detect on load
-fetch('https://ipapi.co/json/')
-  .then(r => r.json())
-  .then(d => {
-    const code = d.country_calling_code;
-    const sel = document.getElementById('phone-country');
-    if (sel && code) {
-      for (let opt of sel.options) {
-        if (opt.value === code || opt.value.startsWith(code)) {
-          opt.selected = true; break;
-        }
-      }
-      updateBudgetFromPhone();
-    }
-  }).catch(() => {});
 
 </script>
 
@@ -654,24 +638,24 @@ fetch('https://ipapi.co/json/')
 (function(){
   const budgetData = {
     AED: {
-      note: 'Prices in AED — auto-detected based on your location',
-      labels: ['Under AED 5,000','AED 5,000 – 10,000','AED 10,000 – 20,000','AED 20,000 – 30,000','More than AED 30,000']
+      note: 'Prices are shown based on your detected region.',
+      labels: ['Up to AED 5,000','Up to AED 10,000','Up to AED 20,000','Up to AED 30,000','More than AED 30,000']
     },
     USD: {
       note: 'Prices in USD — auto-detected based on your location',
-      labels: ['Up to $1,000','Up to $2,000','Up to $4,000','More than $4,000', null]
+      labels: ['Up to $1,000','Up to $2,500','Up to $5,000','Up to $10,000','More than $10,000']
     },
     EUR: {
       note: 'Prices in EUR — auto-detected based on your location',
-      labels: ['Up to €1,000','Up to €2,000','Up to €4,000','More than €4,000', null]
+      labels: ['Up to €1,000','Up to €2,500','Up to €5,000','Up to €10,000','More than €10,000']
     },
     CAD: {
       note: 'Prices in CAD — auto-detected based on your location',
-      labels: ['Up to CAD 1,500','Up to CAD 3,000','Up to CAD 6,000','CAD 6,000 and more', null]
+      labels: ['Up to CAD 1,500','Up to CAD 3,500','Up to CAD 7,000','Up to CAD 14,000','More than CAD 14,000']
     },
     AUD: {
       note: 'Prices in AUD — auto-detected based on your location',
-      labels: ['Up to AUD 1,500','Up to AUD 3,000','Up to AUD 6,000','AUD 6,000 and more', null]
+      labels: ['Up to AUD 1,500','Up to AUD 3,500','Up to AUD 7,000','Up to AUD 14,000','More than AUD 14,000']
     },
   };
 
@@ -682,12 +666,10 @@ fetch('https://ipapi.co/json/')
     for (let i = 1; i <= 5; i++) {
       const el = document.getElementById('bl' + i);
       if (!el) continue;
-      if (d.labels[i-1] === null) {
-        el.closest('.choice').style.display = 'none';
-      } else {
-        el.closest('.choice').style.display = '';
-        el.textContent = d.labels[i-1];
-      }
+      el.closest('.choice').style.display = '';
+      el.textContent = d.labels[i-1];
+      const input = el.closest('.choice')?.querySelector('input[type=radio]');
+      if (input) input.value = d.labels[i-1];
     }
   }
 
@@ -704,8 +686,27 @@ fetch('https://ipapi.co/json/')
       else if (cc === 'AU' || cc === 'NZ') cur = 'AUD';
       else if (eur.includes(cc)) cur = 'EUR';
       applyBudget(cur);
-    }).catch(() => {});
+    }).catch(() => applyBudget('AED'));
 })();
 </script>
+
+<script>
+document.querySelectorAll('.choice input[value="Other"]').forEach(el=>{
+  el.addEventListener('change', ()=>{
+    const parent = el.closest('.field');
+    let extra = parent.querySelector('.other-input-wrap');
+    if(el.checked){
+      if(!extra){
+        extra = document.createElement('div');
+        extra.className = 'other-input-wrap';
+        extra.style.marginTop = '10px';
+        extra.innerHTML = '<input type="text" placeholder="Please specify..." />';
+        parent.appendChild(extra);
+      }
+    }
+  });
+});
+</script>
+
 </body>
 </html>
