@@ -27,7 +27,9 @@
 <meta name="twitter:description" content="Web design, SEO & paid campaigns — based in Dubai, serving clients worldwide.">
 <meta name="twitter:image" content="https://nearive.com/og-image.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Plus+Jakarta+Sans:wght@700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -426,6 +428,21 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 .support-sub{font-size:13px;color:rgba(255,255,255,0.75)}
 .support-badge{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;background:rgba(255,255,255,0.2);padding:8px 16px;border-radius:8px;flex-shrink:0}
 @media(max-width:600px){.support-banner{padding:20px;border-radius:14px}.support-inner{gap:16px}.support-badge{display:none}}
+
+/* ── MOBILE PERFORMANCE OVERRIDES ─────────────────────────────────────
+   Mobile GPUs choke on backdrop-filter and constant blur compositing.
+   Strip the expensive effects on phones; keep the look on desktop. */
+@media (max-width: 768px) {
+  header{ backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(255,255,255,.97); }
+  .n-speed{ backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(10,22,40,.78); }
+  /* Trim particle count: keep 3 instead of 6 — reads the same, halves the GPU work */
+  .n-particle:nth-child(n+4){ display:none; }
+}
+/* Pause the client marquee when offscreen / when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track{ animation:none; }
+  .n-particle{ animation:none; opacity:0; }
+}
 </style>
 </head>
 <body>
@@ -527,24 +544,24 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
   </div>
   <div class="marquee">
     <div class="marquee-track">
-      <div class="marquee-item"><img src="clients/Bode.png" alt="Bode"></div>
-      <div class="marquee-item"><img src="clients/Ecarpet.png" alt="eCarpet Gallery"></div>
-      <div class="marquee-item"><img src="clients/gmdc.png" alt="Galadari Motor Driving Centre"></div>
-      <div class="marquee-item"><img src="clients/LG.png" alt="LG Display"></div>
-      <div class="marquee-item"><img src="clients/mtn.png" alt="MTN"></div>
-      <div class="marquee-item"><img src="clients/nesquik.png" alt="Nestlé Nesquik"></div>
-      <div class="marquee-item"><img src="clients/samsung.png" alt="Samsung"></div>
-      <div class="marquee-item"><img src="clients/sebamed.png" alt="Sebamed"></div>
-      <div class="marquee-item"><img src="clients/tetra.png" alt="Tetra Pak"></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/Bode.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/Ecarpet.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/gmdc.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/LG.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/mtn.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/nesquik.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/samsung.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/sebamed.png" alt=""></div>
-      <div class="marquee-item" aria-hidden="true"><img src="clients/tetra.png" alt=""></div>
+      <div class="marquee-item"><img src="clients/Bode.webp" alt="Bode" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/Ecarpet.webp" alt="eCarpet Gallery" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/gmdc.webp" alt="Galadari Motor Driving Centre" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/LG.webp" alt="LG Display" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/mtn.webp" alt="MTN" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/nesquik.webp" alt="Nestlé Nesquik" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/samsung.webp" alt="Samsung" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/sebamed.webp" alt="Sebamed" loading="lazy" decoding="async"></div>
+      <div class="marquee-item"><img src="clients/tetra.webp" alt="Tetra Pak" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/Bode.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/Ecarpet.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/gmdc.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/LG.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/mtn.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/nesquik.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/samsung.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/sebamed.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="marquee-item" aria-hidden="true"><img src="clients/tetra.webp" alt="" loading="lazy" decoding="async"></div>
     </div>
   </div>
 </section>
@@ -778,21 +795,21 @@ footer{background:var(--navy);border-top:1px solid rgba(255,255,255,.06);padding
 
 <script>
 const IMGS = {
-  'arrowrootfamily':   'sites/arrowrootfamily.jpg',
-  'arrowrootcap':      'sites/arrowrootcap.jpg',
-  'arrowrootadvisors': 'sites/arrowrootadvisors.jpg',
-  'cellscan':          'sites/cellscan.jpg',
-  'tekwat':            'sites/tekwat.jpg',
-  'reorigin':          'sites/reorigin.jpg',
-  'rosebud':           'sites/rosebud.jpg',
-  'dotdesigns':        'sites/dotdesigns.jpg',
-  'talknthrive':       'sites/talknthrive.jpg',
-  'happytails':        'sites/happytails.jpg',
-  'contilio':          'sites/contilio.jpg',
-  'sethfineberg':      'sites/sethfineberg.jpg',
-  'mawtrading':        'sites/mawtrading.jpg',
-  'falconlynks':       'sites/falconlynks.jpg',
-  'nearivestudio':     'sites/nearive-studio.jpg',
+  'arrowrootfamily':   'sites/arrowrootfamily.webp',
+  'arrowrootcap':      'sites/arrowrootcap.webp',
+  'arrowrootadvisors': 'sites/arrowrootadvisors.webp',
+  'cellscan':          'sites/cellscan.webp',
+  'tekwat':            'sites/tekwat.webp',
+  'reorigin':          'sites/reorigin.webp',
+  'rosebud':           'sites/rosebud.webp',
+  'dotdesigns':        'sites/dotdesigns.webp',
+  'talknthrive':       'sites/talknthrive.webp',
+  'happytails':        'sites/happytails.webp',
+  'contilio':          'sites/contilio.webp',
+  'sethfineberg':      'sites/sethfineberg.webp',
+  'mawtrading':        'sites/mawtrading.webp',
+  'falconlynks':       'sites/falconlynks.webp',
+  'nearivestudio':     'sites/nearive-studio.webp',
 };
 
 const PROJECTS = [
@@ -836,7 +853,7 @@ function buildCard(p){
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbc" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
               <span>${p.url}</span>
             </div>
-            <img id="${L}" class="site-img" src="${src}" alt="${p.title}"
+            <img id="${L}" class="site-img" src="${src}" alt="${p.title}" loading="lazy" decoding="async"
               onload="onL('${LD}')" onerror="onE('${LD}','${ER}')"/>
           </div>
         </div>
