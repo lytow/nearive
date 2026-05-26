@@ -445,7 +445,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="form-section">
       <div class="sec-title">One last thing</div>
       <div class="sec-sub">How did you hear about us?</div>
-      <div class="field" data-key="source">
+      <div class="field" data-key="source" id="sourceField">
         <div class="choices grid2">
           <div class="choice"><input type="radio" name="source" id="src1" value="Referral" onchange="toggleReferral(this)"><label class="choice-label" for="src1"><span class="choice-dot"></span>A friend or colleague referred me</label></div>
           <div class="choice"><input type="radio" name="source" id="src2" value="Google Search" onchange="toggleReferral(this)"><label class="choice-label" for="src2"><span class="choice-dot"></span>Google Search</label></div>
@@ -455,7 +455,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <div class="choice"><input type="radio" name="source" id="src6" value="Other" onchange="toggleReferral(this)"><label class="choice-label" for="src6"><span class="choice-dot"></span>Other</label></div>
         </div>
         <div id="referralField" style="display:none;margin-top:12px">
-          <input type="text" id="referralName" placeholder="Name of the person who referred you" style="color:#b8c4d8">
+          <input type="text" id="referralName" placeholder="Name of the person who referred you" >
         </div>
       </div>
     </div>
@@ -626,9 +626,18 @@ form.addEventListener('submit', async function(e){
 // ---- REFERRAL TOGGLE ----
 function toggleReferral(el){
   const f = document.getElementById('referralField');
-  f.style.display = el.value === 'Referral' ? 'block' : 'none';
   const input = document.getElementById('referralName');
-  if(f.style.display === 'none') input.value = '';
+  const sourceField = document.getElementById('sourceField');
+
+  if (sourceField && el.value !== 'Other') {
+    sourceField.querySelectorAll('.other-input-wrap').forEach(e => e.remove());
+  }
+
+  f.style.display = el.value === 'Referral' ? 'block' : 'none';
+
+  if (f.style.display === 'none') {
+    input.value = '';
+  }
 }
 
 
@@ -691,18 +700,20 @@ function toggleReferral(el){
 </script>
 
 <script>
-document.querySelectorAll('.choice input[value="Other"]').forEach(el=>{
-  el.addEventListener('change', ()=>{
+document.querySelectorAll('.choice input[value="Other"]').forEach(el => {
+  el.addEventListener('change', () => {
     const parent = el.closest('.field');
-    let extra = parent.querySelector('.other-input-wrap');
-    if(el.checked){
-      if(!extra){
-        extra = document.createElement('div');
-        extra.className = 'other-input-wrap';
-        extra.style.marginTop = '10px';
-        extra.innerHTML = '<input type="text" placeholder="Please specify..." />';
-        parent.appendChild(extra);
-      }
+
+    // remove old extra inputs first
+    parent.querySelectorAll('.other-input-wrap').forEach(e => e.remove());
+
+    // create only if checked
+    if (el.checked) {
+      const extra = document.createElement('div');
+      extra.className = 'other-input-wrap';
+      extra.style.marginTop = '10px';
+      extra.innerHTML = '<input type="text" placeholder="Please specify..." />';
+      parent.appendChild(extra);
     }
   });
 });
